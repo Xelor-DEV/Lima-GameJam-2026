@@ -1,0 +1,158 @@
+{
+    "version": 1,
+    "name": "Game",
+    "maps": [
+        {
+            "name": "MainMenu",
+            "id": "25e3ec7d-dbb3-42c1-9583-7f72ce4778ce",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "9195f131-064e-4eb9-ad12-10a4091b7d47",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "7dae31ea-2679-4f90-8493-031e630b2307",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "MiniGame1",
+            "id": "bb2a8691-18c4-4bc1-8c4c-2c4f6d91f657",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "7e124bbc-1200-4698-900c-ad550f4b434d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "aba2ce5b-0681-4ee1-a36f-0922c06e1b66",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "MiniGame2",
+            "id": "c841df17-af5f-4a50-b7c3-86ac655ae939",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "887b5705-c795-4493-ad01-e9722d06d9ae",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4fb82e26-8420-42f9-aa8f-5ba900112e6b",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "MiniGame3",
+            "id": "98cb695d-ccfa-4353-a9d4-8798172e5ea2",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "95dee3da-8c9d-495f-8c75-ea2223167fb7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "7ca7ea6b-0898-4b3c-9345-c16341b0dde9",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "KeyboardAndMouse",
+            "bindingGroup": "KeyboardAndMouse",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Gamepad",
+            "bindingGroup": "Gamepad",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Mobile",
+            "bindingGroup": "Mobile",
+            "devices": [
+                {
+                    "devicePath": "<Touchscreen>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
