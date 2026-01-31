@@ -5,6 +5,10 @@ using UnityEngine.EventSystems;
 
 public class WindowController : MonoBehaviour
 {
+    [Header("Referencias Principales")]
+    [Tooltip("El GameObject REAL de la ventana (el Panel) que se activará/desactivará")]
+    [SerializeField] private GameObject windowView;
+
     [Header("Referencias de Navegación")]
     [Tooltip("El botón externo que abre esta ventana (para volver el foco al cerrar)")]
     [SerializeField] private Button openButtonTrigger;
@@ -18,6 +22,7 @@ public class WindowController : MonoBehaviour
     [Header("Comportamiento de Bloqueo")]
     [SerializeField] private bool shouldBlockButtons = false;
     [Tooltip("Lista de botones a desactivar mientras esta ventana está abierta")]
+    [ReorderableList(ListStyle.Boxed, "Buttons to Block", Foldable = true)]
     [SerializeField] private Button[] buttonsToBlock;
 
     [Header("Eventos")]
@@ -38,15 +43,17 @@ public class WindowController : MonoBehaviour
         // Buscamos si hay un módulo de animación adjunto (Strategy Pattern)
         _animationModule = GetComponent<IWindowAnimation>();
 
+        if (windowView != null && windowView.activeSelf)
+        {
+            windowView.SetActive(false);
+        }
+
         // Asignar listeners automáticamente si están referenciados
         if (openButtonTrigger != null)
             openButtonTrigger.onClick.AddListener(OpenWindow);
 
         if (closeButton != null)
             closeButton.onClick.AddListener(CloseWindow);
-
-        // Asegurarnos que la ventana empiece cerrada (opcional, depende de tu flujo)
-        // gameObject.SetActive(false); 
     }
 
     public async void OpenWindow()
@@ -58,7 +65,7 @@ public class WindowController : MonoBehaviour
         OnWindowOpenStart?.Invoke();
 
         // 1. Activar el objeto base
-        gameObject.SetActive(true);
+        windowView.SetActive(true);
 
         // 2. Bloquear botones externos si es necesario
         ToggleExternalButtons(false);
@@ -66,7 +73,7 @@ public class WindowController : MonoBehaviour
         // 3. Ejecutar animación (Modular o Default)
         if (_animationModule != null)
         {
-            await _animationModule.AnimateOpen(this.gameObject);
+            await _animationModule.AnimateOpen(windowView);
         }
 
         // 4. Manejo del Foco (Accessibility/Gamepad)
@@ -92,11 +99,11 @@ public class WindowController : MonoBehaviour
         // 1. Ejecutar animación de cierre
         if (_animationModule != null)
         {
-            await _animationModule.AnimateClose(this.gameObject);
+            await _animationModule.AnimateClose(windowView);
         }
 
         // 2. Desactivar el objeto (si no hay modulo, esto es instantáneo)
-        gameObject.SetActive(false);
+        windowView.SetActive(false);
 
         // 3. Restaurar interactividad de botones externos
         ToggleExternalButtons(true);
