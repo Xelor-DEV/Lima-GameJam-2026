@@ -21,7 +21,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  goodMinigamePhrases:
+  onMinigameSuccess:
   - m_TableReference:
       m_TableCollectionName: GUID:75dd5195453982244adc04e6acfa7679
     m_TableEntryReference:
@@ -30,7 +30,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  badMinigamePhrases:
+  onMinigameFail:
   - m_TableReference:
       m_TableCollectionName: GUID:75dd5195453982244adc04e6acfa7679
     m_TableEntryReference:

@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a1d92aa5a6be2f4e9c8838bb7285220, type: 3}
   m_Name: CharacterDatabase
   m_EditorClassIdentifier: 
-  allCharacters:
+  characterRoster:
   - {fileID: 11400000, guid: df250c17b7511dc4da74305e1b9a983a, type: 2}
+  - {fileID: 11400000, guid: 2a661dd2385af954383ed99e86b60217, type: 2}
+  - {fileID: 11400000, guid: 957b4c263fb15194584b818d78755775, type: 2}

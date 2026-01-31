@@ -35,6 +35,14 @@ MonoBehaviour:
     m_Key: HY_00005
     m_Metadata:
       m_Items: []
+  - m_Id: 79437280821248
+    m_Key: R_00001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 79750196871168
+    m_Key: N_00001
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

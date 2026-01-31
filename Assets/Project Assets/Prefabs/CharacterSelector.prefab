@@ -243,11 +243,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8428176181505821527}
-  m_Father: {fileID: 7589223126240112729}
+  m_Father: {fileID: 8602610744573353836}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 148.911}
+  m_AnchoredPosition: {x: 0, y: 25}
   m_SizeDelta: {x: -50, y: 90.043}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &5540090208609887615
@@ -455,7 +455,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 37.5
+  m_fontSize: 37
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -500,6 +500,83 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &4216665518730523802
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8602610744573353836}
+  - component: {fileID: 4824751415406698774}
+  - component: {fileID: 5259103734390257210}
+  m_Layer: 5
+  m_Name: ImageAndName
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8602610744573353836
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4216665518730523802}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5461521234748776017}
+  - {fileID: 1853211207079188694}
+  m_Father: {fileID: 7589223126240112729}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 68.95621}
+  m_SizeDelta: {x: 0, y: -137.9124}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &4824751415406698774
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4216665518730523802}
+  m_CullTransparentMesh: 1
+--- !u!114 &5259103734390257210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4216665518730523802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.21422213, g: 0.25361204, b: 0.5471698, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &5785747284176881231
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,8 +662,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7589223126240112729}
   - component: {fileID: 6153251800503062456}
-  - component: {fileID: 4439699100320116573}
   - component: {fileID: 6397596673066101161}
+  - component: {fileID: 6730628081187373975}
+  - component: {fileID: 5719266492141015316}
   m_Layer: 5
   m_Name: CharacterSelector
   m_TagString: Untagged
@@ -606,8 +684,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5461521234748776017}
-  - {fileID: 1853211207079188694}
+  - {fileID: 8602610744573353836}
   - {fileID: 8527672642398384761}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -624,36 +701,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6154756550778583862}
   m_CullTransparentMesh: 1
---- !u!114 &4439699100320116573
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6154756550778583862}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.21422213, g: 0.25361204, b: 0.5471698, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!114 &6397596673066101161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -701,29 +748,25 @@ MonoBehaviour:
     m_ActionName: 'MainMenu/Click[/Mouse/leftButton,/Pen/tip]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 6730628081187373975}
+        m_TargetAssemblyTypeName: CharacterSelector, Assembly-CSharp
+        m_MethodName: OnSelect
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 118d2a4d-1bbb-481a-bd5d-397fad2bcb17
-    m_ActionName: 'CharacterSelection/MoveSelection[/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 5719266492141015316}
+        m_TargetAssemblyTypeName: CheatCodeDetector, Assembly-CSharp
+        m_MethodName: OnInput
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -733,13 +776,25 @@ MonoBehaviour:
     m_ActionName: 'CharacterSelection/Select[/Keyboard/z,/Keyboard/enter,/Keyboard/space]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 6730628081187373975}
+        m_TargetAssemblyTypeName: CharacterSelector, Assembly-CSharp
+        m_MethodName: OnCancel
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5719266492141015316}
+        m_TargetAssemblyTypeName: CheatCodeDetector, Assembly-CSharp
+        m_MethodName: OnInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -760,14 +815,122 @@ MonoBehaviour:
     m_ActionId: 95dee3da-8c9d-495f-8c75-ea2223167fb7
     m_ActionName: MiniGame3/New action
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5719266492141015316}
+        m_TargetAssemblyTypeName: CheatCodeDetector, Assembly-CSharp
+        m_MethodName: OnInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: cf8fed1e-ba65-4f54-af31-c93ff47a7622
     m_ActionName: 'CharacterSelection/Join[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6730628081187373975}
+        m_TargetAssemblyTypeName: CharacterSelector, Assembly-CSharp
+        m_MethodName: OnNavigate
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5719266492141015316}
+        m_TargetAssemblyTypeName: CheatCodeDetector, Assembly-CSharp
+        m_MethodName: OnInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ced71a7a-0a49-4036-a2a4-0bb4173eec3c
+    m_ActionName: 'CharacterSelection/Stick[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: CharacterSelection
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &6730628081187373975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6154756550778583862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d80e04950e2aeb4489c6963508a3e2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sessionData: {fileID: 11400000, guid: 21c68dcbd52e3fe4ead68840337d7c45, type: 2}
+  charDatabase: {fileID: 11400000, guid: 1acaa51a9eef45f46b23d92d92bd12a8, type: 2}
+  cheatDetector: {fileID: 5719266492141015316}
+  leftSlot: {fileID: 8726091591320866460}
+  centerSlot: {fileID: 3903437248611005125}
+  rightSlot: {fileID: 1974149150770901790}
+  nameText: {fileID: 4290663017490321885}
+  dialogueContainer: {fileID: 8721479530021731768}
+  dialogueText: {fileID: 6520579973228290689}
+  animDuration: 0.3
+  animEase: 6
+  typeSpeed: 0.04
+--- !u!114 &5719266492141015316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6154756550778583862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c00033691f923ea4a9a2ec2ef787e5aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showDebugLogs: 1
+  cheatCodes:
+  - cheatName: Haruo Yaguchi
+    characterToUnlock: {fileID: 11400000, guid: df250c17b7511dc4da74305e1b9a983a, type: 2}
+    sequence:
+    - actionName: MoveSelection
+      requiredDirection: {x: 0, y: 1}
+    - actionName: MoveSelection
+      requiredDirection: {x: 0, y: 1}
+    - actionName: MoveSelection
+      requiredDirection: {x: 0, y: -1}
+    - actionName: MoveSelection
+      requiredDirection: {x: 0, y: -1}
+    - actionName: MoveSelection
+      requiredDirection: {x: -1, y: 0}
+    - actionName: MoveSelection
+      requiredDirection: {x: 1, y: 0}
+    - actionName: MoveSelection
+      requiredDirection: {x: -1, y: 0}
+    - actionName: MoveSelection
+      requiredDirection: {x: 1, y: 0}
+    - actionName: Select
+      requiredDirection: {x: 0, y: 0}
+    - actionName: Deselect
+      requiredDirection: {x: 0, y: 0}
+    - actionName: Join
+      requiredDirection: {x: 0, y: 0}
+    currentStepIndex: 0
+  maxDelayBetweenInputs: 1
+  sessionData: {fileID: 11400000, guid: 21c68dcbd52e3fe4ead68840337d7c45, type: 2}
+  characterSelector: {fileID: 6730628081187373975}
+  playerInput: {fileID: 6397596673066101161}
 --- !u!1 &6936571120921322684
 GameObject:
   m_ObjectHideFlags: 0
@@ -794,18 +957,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6936571120921322684}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7491738023983939515}
-  m_Father: {fileID: 7589223126240112729}
+  m_Father: {fileID: 8602610744573353836}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 112.5}
-  m_SizeDelta: {x: -50, y: -275}
+  m_AnchoredPosition: {x: 0, y: 57.654823}
+  m_SizeDelta: {x: -50, y: -165.30965}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1693269240948027248
 CanvasRenderer:
@@ -876,7 +1039,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8527672642398384761
 RectTransform:
   m_ObjectHideFlags: 0
@@ -884,7 +1047,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8721479530021731768}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -895,7 +1058,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 10}
-  m_SizeDelta: {x: -20, y: 128.142}
+  m_SizeDelta: {x: -20, y: 116.8085}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &870651311814534150
 CanvasRenderer:
@@ -945,7 +1108,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7491738023983939515}
   - component: {fileID: 8290369435895858754}
-  - component: {fileID: 4903208825153206767}
   m_Layer: 5
   m_Name: Mask
   m_TagString: Untagged
@@ -989,25 +1151,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: 0, y: 0, z: 0, w: 0}
   m_Softness: {x: 0, y: 0}
---- !u!114 &4903208825153206767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9112783945245425342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62cc017fac152e74e9417196e905254e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slots:
-  - {fileID: 8726091591320866460}
-  - {fileID: 3903437248611005125}
-  - {fileID: 1974149150770901790}
-  listaDeSprites:
-  - {fileID: 2613348730587745498, guid: c8e914e2fd21c484e80c2e7d589760f3, type: 3}
-  - {fileID: 3732684416766150546, guid: a8893ef14eb402c4fbfb24940931d1cb, type: 3}
-  - {fileID: 5344405198162954603, guid: b8468e684c2306745805909dc77f7570, type: 3}
-  tiempoTransicion: 0.4
-  inputtest: 0
