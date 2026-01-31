@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 7614e71ccd1d5eb4498c504b6ffa2bf7
+guid: 3dfab03170a01524aba4955de38f5c1a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4218515788896373345
-    second: UIMENU_JUGAR_0
+      213: -2023786340420852155
+    second: PINTAR_A-Sheet_0
+  - first:
+      213: 1345424158814108179
+    second: PINTAR_A-Sheet_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +129,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UIMENU_JUGAR_0
+      name: PINTAR_A-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 205
-        height: 99
+        width: 265
+        height: 265
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +144,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f95747b9d32d475c0800000000000000
-      internalID: -4218515788896373345
+      spriteID: 5466dedbb011ae3e0800000000000000
+      internalID: -2023786340420852155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PINTAR_A-Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 0
+        width: 265
+        height: 265
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31af752e428eba210800000000000000
+      internalID: 1345424158814108179
       vertices: []
       indices: 
       edges: []
@@ -151,7 +176,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 2679d33dab8c00c4d9f3562a25ef4224
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +186,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      UIMENU_JUGAR_0: -4218515788896373345
+      PINTAR_A-Sheet_0: -2023786340420852155
+      PINTAR_A-Sheet_1: 1345424158814108179
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

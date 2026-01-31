@@ -226,8 +226,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4291025893
+  m_fontColor: {r: 0.8980392, g: 0.85882354, b: 0.7647059, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -351,14 +351,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.49056602, g: 0.2707369, b: 0.2707369, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -4121297052661657400, guid: b98fa7517d9f3ff458b3a5b9bdc642d6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -452,7 +452,7 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
     m_Reference: {fileID: 1934672220}
-  m_PlayerPrefab: {fileID: 6154756550778583862, guid: b7c98803e3d8e4b4dba6904da80a4606, type: 3}
+  m_PlayerPrefab: {fileID: 6154756550778583862, guid: a6ce5978d05433d4d9408dd491e26b49, type: 3}
   m_SplitScreen: 0
   m_MaintainAspectRatioInSplitScreen: 0
   m_FixedNumberOfSplitScreens: -1
@@ -493,6 +493,7 @@ MonoBehaviour:
   container: {fileID: 1286283272}
   countdownText: {fileID: 1575939342}
   countdownSeconds: 3
+  minPlayersRequired: 2
   sceneToLoad: Cut
   OnAllPlayersReady:
     m_PersistentCalls:
@@ -728,8 +729,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4291025893
+  m_fontColor: {r: 0.8962264, g: 0.858783, b: 0.76517445, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1043,7 +1044,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4290533009
-  m_fontColor: {r: 0.56795865, g: 0.33668566, b: 0.735849, a: 1}
+  m_fontColor: {r: 0.8980392, g: 0.85882354, b: 0.7647059, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 7614e71ccd1d5eb4498c504b6ffa2bf7
+guid: 6256920513410064cb9b748e0092d797
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4218515788896373345
-    second: UIMENU_JUGAR_0
+      213: 1932937355143028278
+    second: MASK_A1_BASE_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UIMENU_JUGAR_0
+      name: MASK_A1_BASE_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 205
-        height: 99
+        width: 908
+        height: 1020
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f95747b9d32d475c0800000000000000
-      internalID: -4218515788896373345
+      spriteID: 63e126a884c23da10800000000000000
+      internalID: 1932937355143028278
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 7328dec390568874d939279b40344c57
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      UIMENU_JUGAR_0: -4218515788896373345
+      MASK_A1_BASE_0: 1932937355143028278
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
