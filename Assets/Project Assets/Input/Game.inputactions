@@ -360,6 +360,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Join",
+                    "type": "Button",
+                    "id": "cf8fed1e-ba65-4f54-af31-c93ff47a7622",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -453,17 +462,6 @@
                 },
                 {
                     "name": "",
-                    "id": "c6bff447-4dae-407c-8b90-ad4676e392f5",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";KeyboardAndMouse",
-                    "action": "Select",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "7b6b5c45-5a91-41f6-ace6-88ec7b2d72c0",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
@@ -514,6 +512,28 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "Deselect",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "247bb351-6a96-419e-8d67-b6448cdcadc9",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Join",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fb281c53-20c0-4b1a-aa57-0d15d4b9ea3e",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";KeyboardAndMouse",
+                    "action": "Join",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
