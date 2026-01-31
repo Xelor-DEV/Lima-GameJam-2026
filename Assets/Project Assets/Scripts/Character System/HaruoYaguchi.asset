@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6946e745e80103439f65d7606c629ad, type: 3}
+  m_Name: HaruoYaguchi
+  m_EditorClassIdentifier: 
+  characterName: Haruo Yaguchi
+  portraitImage: {fileID: 2613348730587745498, guid: c8e914e2fd21c484e80c2e7d589760f3, type: 3}
+  icon: {fileID: 5344405198162954603, guid: b8468e684c2306745805909dc77f7570, type: 3}
+  isSecret: 1
+  selectionPhrase:
+    m_TableReference:
+      m_TableCollectionName: GUID:75dd5195453982244adc04e6acfa7679
+    m_TableEntryReference:
+      m_KeyId: 168231944192
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  voiceLines: {fileID: 11400000, guid: 5263542efea2e1c4180b6a2b2e0cf3bf, type: 2}
+  characterVoice: {fileID: 0}
+  references:
+    version: 2
+    RefIds: []
