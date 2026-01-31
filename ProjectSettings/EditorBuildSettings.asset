@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Project Assets/Scenes/MainMenu.unity
     guid: 075bfbbed1877cb43ad0d20782b40bbe
+  - enabled: 1
+    path: Assets/Project Assets/Scenes/CharacterSelection.unity
+    guid: 2e399c707b4c5734383dedabd48c4bae
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 7a34d0493fc62d046931c829846bffbf, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

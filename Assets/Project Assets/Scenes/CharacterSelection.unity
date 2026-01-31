@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 210976819}
   - component: {fileID: 210976818}
   m_Layer: 5
-  m_Name: SelectText (1)
+  m_Name: Instruction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -426,7 +426,7 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
     m_Reference: {fileID: 1934672220}
-  m_PlayerPrefab: {fileID: 6224148626022678965, guid: bdb50139e809c28478d9094bddbc78fa, type: 3}
+  m_PlayerPrefab: {fileID: 6154756550778583862, guid: b7c98803e3d8e4b4dba6904da80a4606, type: 3}
   m_SplitScreen: 0
   m_MaintainAspectRatioInSplitScreen: 0
   m_FixedNumberOfSplitScreens: -1
@@ -445,7 +445,7 @@ Transform:
   m_GameObject: {fileID: 898602403}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 83.792984, y: 79.28603, z: -1.5162094}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
