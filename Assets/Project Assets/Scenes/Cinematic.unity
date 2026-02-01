@@ -1092,6 +1092,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1380472184}
   m_CullTransparentMesh: 1
+--- !u!1 &1394890286
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1394890288}
+  - component: {fileID: 1394890287}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1394890287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394890286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb0b87ec45db99c4195110394128141c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _destroyWholeObjectOnDuplicate: 1
+  memory: {fileID: 11400000, guid: d7cea7e4bfb42b5418e9e301809736fb, type: 2}
+  audioSourcePrefab: {fileID: 7761937444682197948, guid: d1ab0e0a3e28a45499a51542d491ed10, type: 3}
+  playMusicOnAwake: 1
+  awakeMusic: {fileID: 11400000, guid: 93b8f13548d51694c969977bcf9558a2, type: 2}
+  applyMemoryToMixer: 1
+  audioLibraries:
+  - {fileID: 11400000, guid: 6e265038fb405e848b5f155c47697616, type: 2}
+  defaultSnapshot: {fileID: 11400000, guid: 87d277bf9bd8dca4b9e1b391a9d60303, type: 2}
+--- !u!4 &1394890288
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394890286}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1508411822
 GameObject:
   m_ObjectHideFlags: 0
@@ -1336,3 +1389,4 @@ SceneRoots:
   - {fileID: 464212832}
   - {fileID: 377337715}
   - {fileID: 1944793393}
+  - {fileID: 1394890288}
