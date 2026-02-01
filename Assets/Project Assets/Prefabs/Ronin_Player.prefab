@@ -51,8 +51,8 @@ MonoBehaviour:
   pointsPerStep: 10
   penaltyOnFail: 50
   errorShowDuration: 1.5
-  minBlinkSpeed: 0.25
-  maxBlinkSpeed: 0.75
+  minBlinkSpeed: 0.15
+  maxBlinkSpeed: 0.5
 --- !u!114 &4350813783795779890
 MonoBehaviour:
   m_ObjectHideFlags: 0

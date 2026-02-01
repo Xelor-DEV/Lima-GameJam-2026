@@ -156,6 +156,7 @@ MonoBehaviour:
   applyMemoryToMixer: 1
   audioLibraries:
   - {fileID: 11400000, guid: 6e265038fb405e848b5f155c47697616, type: 2}
+  - {fileID: 11400000, guid: 4cf8c934544cb1a4db8453455c63aad2, type: 2}
   defaultSnapshot: {fileID: 11400000, guid: 87d277bf9bd8dca4b9e1b391a9d60303, type: 2}
 --- !u!4 &136276172
 Transform:

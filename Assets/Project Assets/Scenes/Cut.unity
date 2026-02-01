@@ -206,6 +206,8 @@ MonoBehaviour:
   - {fileID: 922259936}
   - {fileID: 1470319926}
   mainCamera: {fileID: 1142720588}
+  gamepadSchemeName: Gamepad
+  keyboardSchemeName: KeyboardAndMouse
 --- !u!4 &192099440
 Transform:
   m_ObjectHideFlags: 0
@@ -442,7 +444,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 5
   m_Sprite: {fileID: -2161509759979742671, guid: e6387a2886b068c45970edcb55fd60f6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1160,6 +1162,8 @@ MonoBehaviour:
   applyMemoryToMixer: 1
   audioLibraries:
   - {fileID: 11400000, guid: 6e265038fb405e848b5f155c47697616, type: 2}
+  - {fileID: 11400000, guid: 821ce5abb10f27342835541acd1530ce, type: 2}
+  - {fileID: 11400000, guid: 83811cf8e46a2a34a87fb02683fbf2ee, type: 2}
   defaultSnapshot: {fileID: 11400000, guid: 87d277bf9bd8dca4b9e1b391a9d60303, type: 2}
 --- !u!4 &1252472057
 Transform:

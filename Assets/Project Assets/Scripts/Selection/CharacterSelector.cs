@@ -34,6 +34,11 @@ public class CharacterSelector : MonoBehaviour
     [SerializeField] private Ease animEase = Ease.OutQuad;
     [SerializeField] private float typeSpeed = 0.04f;
 
+    [Header("Audio SFX")]
+    [SerializeField] private CycloneClip moveSfx;    // Sonido al mover carrusel
+    [SerializeField] private CycloneClip selectSfx;  // Sonido al confirmar (Ready)
+    [SerializeField] private CycloneClip cancelSfx;
+
     // Internal State
     private int _playerIndex;
     private int _visualIndex; // Index within the _availableIndices list
@@ -152,6 +157,11 @@ public class CharacterSelector : MonoBehaviour
 
     private void MoveCarousel(int direction)
     {
+        if (CycloneAudioDriver.Instance != null && moveSfx != null)
+        {
+            CycloneAudioDriver.Instance.PlayOneShot(moveSfx);
+        }
+
         _isAnimating = true;
         _visualIndex += direction;
 
@@ -275,6 +285,18 @@ public class CharacterSelector : MonoBehaviour
         int realDbIndex = _availableIndices[localIndex];
 
         CharacterData selectedChar = charDatabase.GetCharacter(realDbIndex);
+
+        if (CycloneAudioDriver.Instance != null)
+        {
+            if (ready && selectSfx != null)
+            {
+                CycloneAudioDriver.Instance.PlayOneShot(selectSfx);
+            }
+            else if (!ready && cancelSfx != null)
+            {
+                CycloneAudioDriver.Instance.PlayOneShot(cancelSfx);
+            }
+        }
 
         // Update Session Data
         if (sessionData.players.Count > _playerIndex)

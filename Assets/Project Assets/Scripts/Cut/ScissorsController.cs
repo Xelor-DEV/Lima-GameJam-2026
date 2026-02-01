@@ -1,12 +1,23 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using NexusChaser.CycloneAMS; // Necesario para audio
 
-// Ya no requiere LineRenderer
 public class ScissorsController : MonoBehaviour
 {
     [Header("Referencias")]
     [Tooltip("El punto exacto de la punta de la tijera")]
     public Transform cuttingTip;
+
+    // --- NUEVO: Referencias Visuales y de Audio ---
+    [Header("Visuals & Audio")]
+    [SerializeField] private SpriteRenderer visualRenderer; // El SpriteRenderer del objeto
+    [SerializeField] private Sprite idleSprite;             // Sprite tijera abierta/quieta
+    [SerializeField] private Sprite cutSprite;              // Sprite tijera cerrada/cortando
+    [SerializeField] private float animationSpeed = 0.15f;  // Velocidad de cambio de sprite
+
+    [SerializeField] private CycloneClip cutLoopSfx;
+    [SerializeField] private CycloneClip completeSfx; // El clip loopeado en Cyclone
+    // ----------------------------------------------
 
     // Referencias inyectadas
     private CuttingPattern currentTargetPattern;
@@ -19,11 +30,23 @@ public class ScissorsController : MonoBehaviour
     public float penaltyPerFrame = 0.5f;
     public float winThreshold = 0.98f;
 
-    [HideInInspector] public Color lineColor; // El manager lo asigna, pero solo lo usaremos para pasarlo al patrón
+    [HideInInspector] public Color lineColor;
 
     // Estado
     private bool isCuttingInputActive = false;
     private bool patternFinished = false;
+
+    // Variables internas para feedback
+    private bool _isSfxPlaying = false;
+    private float _animTimer;
+    private bool _toggleSpriteState;
+    private CycloneAudioDriver _cachedDriver;
+
+    private void Start()
+    {
+        // Guardamos la referencia AQUÍ, cuando es seguro que existe.
+        _cachedDriver = CycloneAudioDriver.Instance;
+    }
 
     // --- SETUP ---
     public void Initialize(int pIndex, PlayerUIInfo ui, PatternMinigameManager mgr)
@@ -38,8 +61,6 @@ public class ScissorsController : MonoBehaviour
         currentTargetPattern = pattern;
         patternFinished = false;
 
-        // --- NUEVO: Inicializar visuales del patrón ---
-        // Le decimos al patrón de qué color debe pintarse inicialmente
         if (currentTargetPattern != null)
         {
             currentTargetPattern.InitializeVisuals(lineColor);
@@ -56,40 +77,93 @@ public class ScissorsController : MonoBehaviour
     // --- LOOP PRINCIPAL ---
     void Update()
     {
-        if (patternFinished || currentTargetPattern == null || cuttingTip == null) return;
+        // Si terminamos, aseguramos que todo se detenga
+        if (patternFinished || currentTargetPattern == null || cuttingTip == null)
+        {
+            HandleFeedback(false);
+            return;
+        }
+
+        // Determinamos si realmente estamos "cortando" (Input activo + Zona Segura)
+        bool isEffectivelyCutting = false;
 
         if (isCuttingInputActive)
         {
-            ProcessCutMovement();
+            bool isSafe = currentTargetPattern.IsPositionSafe(cuttingTip.position);
+
+            if (isSafe)
+            {
+                isEffectivelyCutting = true;
+                ProcessCutMovement(); // Lógica original de corte
+            }
+            else
+            {
+                // Penalización (Input activo pero fuera de línea)
+                if (linkedUI != null) linkedUI.AddScore(-penaltyPerFrame);
+            }
         }
+
+        // Actualizamos Audio y Sprite basado en si estamos cortando efectivamente
+        HandleFeedback(isEffectivelyCutting);
     }
 
     void ProcessCutMovement()
     {
-        Vector3 tipPos = cuttingTip.position;
-
-        // Lógica de juego
-        bool isSafe = currentTargetPattern.IsPositionSafe(tipPos);
-
-        if (isSafe)
+        // La lógica de puntos ya está validada por el flag isSafe arriba
+        if (currentTargetPattern.TryCutNode(cuttingTip.position))
         {
-            // Intentar cortar y sumar puntos
-            // Ahora TryCutNode se encarga de actualizar la visual del patrón
-            if (currentTargetPattern.TryCutNode(tipPos))
-            {
-                if (linkedUI != null) linkedUI.AddScore(pointsPerNode);
-            }
+            if (linkedUI != null) linkedUI.AddScore(pointsPerNode);
+        }
 
-            // Chequeo de victoria
-            if (currentTargetPattern.GetProgress() >= winThreshold)
+        if (currentTargetPattern.GetProgress() >= winThreshold)
+        {
+            CompletePattern();
+        }
+    }
+
+    // --- NUEVO: Lógica de Animación y Audio ---
+    void HandleFeedback(bool isActionActive)
+    {
+        // Usamos _cachedDriver si existe, o Instance si no lo tenemos (backup)
+        CycloneAudioDriver driver = _cachedDriver != null ? _cachedDriver : CycloneAudioDriver.Instance;
+
+        // Si por alguna razón el driver es nulo (ej. error init), salimos
+        if (driver == null) return;
+
+        // 1. Audio Logic
+        if (cutLoopSfx != null)
+        {
+            if (isActionActive && !_isSfxPlaying)
             {
-                CompletePattern();
+                driver.Play(cutLoopSfx);
+                _isSfxPlaying = true;
+            }
+            else if (!isActionActive && _isSfxPlaying)
+            {
+                driver.Stop(cutLoopSfx);
+                _isSfxPlaying = false;
             }
         }
-        else
+
+        // ... (Visuals Logic igual) ...
+        if (visualRenderer != null && idleSprite != null && cutSprite != null)
         {
-            // Penalización
-            if (linkedUI != null) linkedUI.AddScore(-penaltyPerFrame);
+            if (isActionActive)
+            {
+                _animTimer += Time.deltaTime;
+                if (_animTimer >= animationSpeed)
+                {
+                    _animTimer = 0;
+                    _toggleSpriteState = !_toggleSpriteState;
+                    visualRenderer.sprite = _toggleSpriteState ? cutSprite : idleSprite;
+                }
+            }
+            else
+            {
+                visualRenderer.sprite = idleSprite;
+                _toggleSpriteState = false;
+                _animTimer = 0;
+            }
         }
     }
 
@@ -97,11 +171,33 @@ public class ScissorsController : MonoBehaviour
     {
         patternFinished = true;
         isCuttingInputActive = false;
+
+        // Detenemos loop visual/audio
+        HandleFeedback(false);
+
+        // Sonido de éxito (usando caché)
+        if (_cachedDriver != null && completeSfx != null)
+        {
+            _cachedDriver.PlayOneShot(completeSfx);
+        }
+
         manager.OnPatternCompleted(playerIndex);
     }
 
     public void ForceAddScore(float amount)
     {
         if (linkedUI != null) linkedUI.AddScore(amount);
+    }
+
+    private void OnDisable()
+    {
+        // --- CORRECCIÓN CRÍTICA ---
+        // Verificamos la referencia en caché. Si Unity ya destruyó el Driver (por cambio de escena),
+        // _cachedDriver será "null" y NO entraremos al if, evitando resucitar el Singleton.
+        if (_cachedDriver != null && _isSfxPlaying)
+        {
+            _cachedDriver.Stop(cutLoopSfx);
+            _isSfxPlaying = false;
+        }
     }
 }

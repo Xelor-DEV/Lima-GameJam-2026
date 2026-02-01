@@ -341,5 +341,38 @@ namespace NexusChaser.CycloneAMS
                 Debug.LogWarning($"[CycloneAMS] Error applying snapshot (custom time): {ex.Message}");
             }
         }
+
+        public void SetPitch(CycloneClip cycloneClip, float pitch)
+        {
+            try
+            {
+                if (cycloneClip == null) return;
+
+                // 1. Buscar en Fuentes Dedicadas (Prioridad)
+                if (dedicatedClipSources.TryGetValue(cycloneClip, out AudioSource dedicatedSource))
+                {
+                    dedicatedSource.pitch = pitch;
+                    return;
+                }
+
+                // 2. Buscar en Fuentes Compartidas
+                if (sharedClipMap.TryGetValue(cycloneClip, out ChannelType type))
+                {
+                    if (sharedChannelSources.TryGetValue(type, out AudioSource sharedSource))
+                    {
+                        // IMPORTANTE: Solo cambiamos el pitch si este canal está reproduciendo NUESTRO clip.
+                        // Esto evita cambiarle el tono a otro sonido que haya robado el canal.
+                        if (sharedSource.clip == cycloneClip.Clip)
+                        {
+                            sharedSource.pitch = pitch;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogWarning($"[CycloneAMS] Error setting pitch for '{cycloneClip?.name}': {ex.Message}");
+            }
+        }
     }
 }

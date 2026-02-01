@@ -808,10 +808,6 @@ MonoBehaviour:
     m_ActionName: MiniGame1/New action
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 887b5705-c795-4493-ad01-e9722d06d9ae
-    m_ActionName: MiniGame2/New action
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: 95dee3da-8c9d-495f-8c75-ea2223167fb7
     m_ActionName: MiniGame3/New action
   - m_PersistentCalls:
@@ -862,6 +858,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: c862f416-4ad4-49c3-82fb-37503ad34f8a
     m_ActionName: 'Cut/Cut[/XInputControllerWindows/buttonSouth,/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dc5e5dce-c4ab-4440-a4fd-9fdbf1a65cd9
+    m_ActionName: 'RoninSays/South[/XInputControllerWindows/buttonSouth,/Keyboard/z]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f5c263eb-664b-488a-88f7-5564d43f3270
+    m_ActionName: 'RoninSays/East[/XInputControllerWindows/buttonEast,/Keyboard/x]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7f89e572-51d2-4b59-b3c3-3ed0d1b2cf4d
+    m_ActionName: 'RoninSays/West[/XInputControllerWindows/buttonWest,/Keyboard/c]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5d6b290e-1044-4936-b6b5-bd5b9c356bf7
+    m_ActionName: 'RoninSays/North[/XInputControllerWindows/buttonNorth,/Keyboard/v]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: CharacterSelection
@@ -891,6 +903,9 @@ MonoBehaviour:
   animDuration: 0.3
   animEase: 6
   typeSpeed: 0.04
+  moveSfx: {fileID: 11400000, guid: de38518ae314a72458f10e078e0d21b9, type: 2}
+  selectSfx: {fileID: 11400000, guid: 453f69508e0070c4a8e57b3270239303, type: 2}
+  cancelSfx: {fileID: 11400000, guid: d388bc7c866108c4a85bf9a8233b781b, type: 2}
 --- !u!114 &5719266492141015316
 MonoBehaviour:
   m_ObjectHideFlags: 0
