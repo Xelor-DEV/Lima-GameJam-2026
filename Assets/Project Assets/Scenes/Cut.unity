@@ -276,6 +276,7 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 922259936}
   - {fileID: 1470319926}
+  mainCamera: {fileID: 1142720588}
 --- !u!4 &192099440
 Transform:
   m_ObjectHideFlags: 0
@@ -285,7 +286,7 @@ Transform:
   m_GameObject: {fileID: 192099438}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 151.74663, y: 116.107185, z: -1.1707926}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -409,9 +410,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetCollider: {fileID: 0}
-  areaSize: {x: 9, y: 10}
-  areaCenter: {x: -4.59, y: 0}
-  gizmoColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!4 &328968346
 Transform:
   m_ObjectHideFlags: 0
