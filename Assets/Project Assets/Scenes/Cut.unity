@@ -235,6 +235,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patternPrefabs:
   - {fileID: 4613110120122304960, guid: a47248598310f384bb29f252953605a5, type: 3}
+  - {fileID: 8428698132197581977, guid: ef24fae2e8b79a7479312b4f1a72d2b0, type: 3}
+  - {fileID: 4089504365359708742, guid: e35fc2aad889c6f4aa65203866d72071, type: 3}
+  - {fileID: 5154013888717695272, guid: 0882c846e89c45f4e889ddbf05c4aeae, type: 3}
   patternSpawnPoints:
   - {fileID: 146702559}
   - {fileID: 1378809999}

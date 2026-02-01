@@ -34,6 +34,12 @@ MonoBehaviour:
     - Locale-es
     - Preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d6f5a101755d05b458c9dbc05c4e17de
+    m_Address: Win_es
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dd9d9852f433c5342b6f36912a12d3ae
     m_Address: MainMenu_es
     m_ReadOnly: 1

@@ -3,7 +3,9 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
-using UnityEngine.Localization; // Necesario para Localization
+using UnityEngine.Localization;
+using DG.Tweening;
+using System.Collections;
 
 public class SimonPlayerController : MonoBehaviour
 {
@@ -11,24 +13,31 @@ public class SimonPlayerController : MonoBehaviour
     public float timeToInputNextStep = 3.0f;
     public float pointsPerStep = 10f;
     public float penaltyOnFail = 50f;
+    public float errorShowDuration = 1.5f;
 
-    // --- PROPIEDAD PÚBLICA SOLICITADA ---
-    // Esto permite al Manager acceder a la UI para dar el bonus final
+    [Header("Configuración Visual")]
+    [Tooltip("Velocidad del parpadeo cuando el tiempo está lleno (Lento)")]
+    public float minBlinkSpeed = 1.0f; // Antes era 2f
+    [Tooltip("Velocidad del parpadeo cuando el tiempo está por acabarse (Rápido)")]
+    public float maxBlinkSpeed = 4.0f; // Antes era 8f (Bájalo a 3f si aún es muy rápido)
+
     public PlayerUIInfo UiInfo { get; private set; }
 
-    // Referencias privadas e inyectadas
     private List<SimonInputDefinition> targetSequence;
     private List<Image> uiIcons;
     private List<GameObject> initialIconObjects = new List<GameObject>();
-    private TextMeshProUGUI myStatusText; // Texto específico de ESTE jugador
+    private TextMeshProUGUI myStatusText;
     private SimonMinigameManager manager;
 
     private int playerIndex;
     private int currentStepIndex = 0;
     private float lastInputTime;
-    private bool isGameActive = false;
 
-    // Referencias a textos de error (Inyectadas desde el Manager para no repetir config)
+    // Estados
+    private bool isGameActive = false;
+    private bool isShowingError = false;
+    private bool waitingForFirstInput = true;
+
     private LocalizedString errTimeoutStr;
     private LocalizedString errWrongBtnStr;
 
@@ -38,62 +47,111 @@ public class SimonPlayerController : MonoBehaviour
                            LocalizedString locTimeout, LocalizedString locWrong)
     {
         playerIndex = pIndex;
-        UiInfo = info; // Guardamos en la propiedad pública
+        UiInfo = info;
         manager = gm;
         targetSequence = seq;
         uiIcons = icons;
         myStatusText = statusText;
-
-        // Guardamos las referencias de localización para usarlas al fallar
         errTimeoutStr = locTimeout;
         errWrongBtnStr = locWrong;
 
-        // Guardamos estado inicial de iconos
         initialIconObjects.Clear();
         foreach (var img in uiIcons)
         {
-            if (img != null) initialIconObjects.Add(img.gameObject);
+            if (img != null)
+            {
+                initialIconObjects.Add(img.gameObject);
+                img.transform.localScale = Vector3.one;
+                img.color = Color.white;
+            }
         }
 
+        ResetState();
+    }
+
+    private void ResetState()
+    {
         currentStepIndex = 0;
-        isGameActive = false; // Espera a que el manager active
+        isGameActive = false;
+        isShowingError = false;
+        waitingForFirstInput = true;
     }
 
     public void EnableGame(bool enable)
     {
         isGameActive = enable;
-        if (enable) lastInputTime = Time.time;
+        if (enable)
+        {
+            waitingForFirstInput = true;
+            isShowingError = false;
+            lastInputTime = Time.time;
+        }
     }
 
     void Update()
     {
-        if (!isGameActive) return;
+        if (!isGameActive || isShowingError) return;
 
-        // Verificar Timeout
-        if (Time.time - lastInputTime > timeToInputNextStep && currentStepIndex > 0)
+        // --- LÓGICA DE ESPERA INICIAL ---
+        if (waitingForFirstInput)
+        {
+            if (myStatusText != null)
+            {
+                myStatusText.text = timeToInputNextStep.ToString("F1") + "s";
+                myStatusText.color = Color.white;
+            }
+            return;
+        }
+
+        float timeElapsed = Time.time - lastInputTime;
+        float remainingTime = timeToInputNextStep - timeElapsed;
+
+        // 1. Mostrar Cuenta Regresiva
+        if (myStatusText != null)
+        {
+            float displayTime = Mathf.Max(0, remainingTime);
+            myStatusText.text = displayTime.ToString("F1") + "s";
+
+            if (remainingTime < 1.0f) myStatusText.color = Color.red;
+            else myStatusText.color = Color.white;
+        }
+
+        // 2. Efecto de Parpadeo CONTROLADO
+        if (currentStepIndex < uiIcons.Count && uiIcons[currentStepIndex] != null)
+        {
+            Image currentIcon = uiIcons[currentStepIndex];
+
+            float urgency = timeElapsed / timeToInputNextStep;
+
+            // Usamos las variables públicas para controlar la velocidad
+            float blinkSpeed = Mathf.Lerp(minBlinkSpeed, maxBlinkSpeed, urgency * urgency);
+
+            float blinkVal = Mathf.PingPong(Time.time * blinkSpeed, 1f);
+
+            // Interpolamos hacia rojo suave
+            currentIcon.color = Color.Lerp(Color.white, new Color(1f, 0.4f, 0.4f), blinkVal + (urgency * 0.6f));
+        }
+
+        // 3. Verificar Timeout
+        if (timeElapsed > timeToInputNextStep)
         {
             HandleMistake(errTimeoutStr);
         }
     }
 
-    // Método a conectar en el PlayerInput -> Events
-    // Dentro de SimonPlayerController.cs
-
     public void OnInput(InputAction.CallbackContext context)
     {
-        if (!isGameActive || !context.performed) return;
-
-        // Ignorar ruido (mouse delta, look, etc.)
+        if (!isGameActive || isShowingError || !context.performed) return;
         if (context.action.name.Contains("Look") || context.action.name.Contains("Mouse")) return;
 
-        // 1. Leemos el valor como Vector2 (incluso los botones devuelven vector, pero será 0,0 o 1,0 si es trigger)
-        // Sin embargo, para botones simples usamos context.action.name. 
-        // Para sticks usamos el vector.
-        Vector2 inputVector = Vector2.zero;
-        if (context.valueType == typeof(Vector2))
+        if (waitingForFirstInput)
         {
-            inputVector = context.ReadValue<Vector2>();
+            waitingForFirstInput = false;
+            lastInputTime = Time.time;
         }
+
+        Vector2 inputVector = Vector2.zero;
+        if (context.valueType == typeof(Vector2)) inputVector = context.ReadValue<Vector2>();
 
         ValidateInput(context.action.name, inputVector);
     }
@@ -105,98 +163,98 @@ public class SimonPlayerController : MonoBehaviour
         SimonInputDefinition expectedStep = targetSequence[currentStepIndex];
         bool isMatch = false;
 
-        // A) Validación de Nombre
         if (string.Equals(inputActionName, expectedStep.actionName, System.StringComparison.OrdinalIgnoreCase))
         {
-            // B) Validación de Dirección
             if (expectedStep.IsDirectional)
             {
-                // Es un Stick/D-pad: Verificamos si la dirección coincide (usando producto punto o distancia)
-                // Usamos 0.5f como umbral para ser permisivos con el stick analógico
                 if (inputDir.magnitude > 0.1f && Vector2.Dot(inputDir.normalized, expectedStep.requiredDirection.normalized) > 0.5f)
-                {
                     isMatch = true;
-                }
             }
-            else
-            {
-                // Es un Botón (0,0): Basta con que el nombre coincida (ya validado arriba)
-                isMatch = true;
-            }
+            else isMatch = true;
         }
 
-        if (isMatch)
-        {
-            HandleSuccessStep();
-        }
-        else
-        {
-            // Solo penalizamos si es una acción relevante del juego
-            if (manager.IsActionInPool(inputActionName))
-            {
-                // Ojo: Si es el stick correcto pero dirección incorrecta, también debería fallar aquí
-                HandleMistake(errWrongBtnStr);
-            }
-        }
+        if (isMatch) HandleSuccessStep();
+        else if (manager.IsActionInPool(inputActionName)) HandleMistake(errWrongBtnStr);
     }
 
     private void HandleSuccessStep()
     {
         lastInputTime = Time.time;
+        if (UiInfo != null) UiInfo.AddScore(pointsPerStep);
 
-        // Limpiar mensaje de error si había uno
-        if (myStatusText != null) myStatusText.text = "";
-
-        // Ocultar icono completado
+        // Pop Out Effect
         if (currentStepIndex < uiIcons.Count && uiIcons[currentStepIndex] != null)
         {
-            uiIcons[currentStepIndex].gameObject.SetActive(false);
+            Image completedIcon = uiIcons[currentStepIndex];
+            completedIcon.color = Color.white;
+            completedIcon.transform
+                .DOScale(Vector3.one * 1.5f, 0.15f)
+                .OnComplete(() => {
+                    completedIcon.transform
+                        .DOScale(Vector3.zero, 0.15f)
+                        .OnComplete(() => completedIcon.gameObject.SetActive(false));
+                });
         }
-
-        // Sumar puntos parciales
-        if (UiInfo != null) UiInfo.AddScore(pointsPerStep);
 
         currentStepIndex++;
 
-        // Verificar victoria
         if (currentStepIndex >= targetSequence.Count)
         {
             isGameActive = false;
+            if (myStatusText != null) myStatusText.text = "";
             manager.PlayerFinished(playerIndex);
         }
     }
 
     private void HandleMistake(LocalizedString errorMsg)
     {
-        // 1. Reiniciar lógica
-        currentStepIndex = 0;
-        lastInputTime = Time.time;
-
-        // 2. Penalizar
-        if (UiInfo != null) UiInfo.AddScore(-penaltyOnFail);
-
-        // 3. Restaurar UI visual
-        foreach (var obj in initialIconObjects)
-        {
-            if (obj != null) obj.SetActive(true);
-        }
-
-        // 4. Mostrar feedback visual (Localized)
-        if (myStatusText != null)
-        {
-            // Refrescamos el string localizado
-            errorMsg.RefreshString();
-            myStatusText.text = errorMsg.GetLocalizedString();
-
-            // Opcional: Borrar el texto después de 1 segundo (Corrutina simple)
-            StopAllCoroutines();
-            StartCoroutine(ClearTextRoutine());
-        }
+        StartCoroutine(ShowErrorAndResetRoutine(errorMsg));
     }
 
-    private System.Collections.IEnumerator ClearTextRoutine()
+    private IEnumerator ShowErrorAndResetRoutine(LocalizedString errorMsg)
     {
-        yield return new WaitForSeconds(1.5f);
-        if (myStatusText != null) myStatusText.text = "";
+        isShowingError = true;
+
+        if (currentStepIndex < uiIcons.Count && uiIcons[currentStepIndex] != null)
+        {
+            uiIcons[currentStepIndex].transform.DOKill();
+            uiIcons[currentStepIndex].transform.localScale = Vector3.one;
+            uiIcons[currentStepIndex].color = Color.white;
+        }
+
+        if (UiInfo != null) UiInfo.AddScore(-penaltyOnFail);
+
+        foreach (var obj in initialIconObjects)
+        {
+            if (obj != null)
+            {
+                obj.SetActive(true);
+                obj.transform.DOKill();
+                obj.transform.localScale = Vector3.one;
+                obj.GetComponent<Image>().color = Color.white;
+            }
+        }
+
+        if (myStatusText != null)
+        {
+            myStatusText.DOKill();
+            errorMsg.RefreshString();
+            myStatusText.text = errorMsg.GetLocalizedString();
+            myStatusText.color = Color.red;
+            myStatusText.transform.DOPunchPosition(Vector3.right * 10f, 0.5f, 20, 90);
+        }
+
+        yield return new WaitForSeconds(errorShowDuration);
+
+        currentStepIndex = 0;
+
+        if (myStatusText != null)
+        {
+            myStatusText.color = Color.white;
+            myStatusText.text = "";
+        }
+
+        isShowingError = false;
+        waitingForFirstInput = true;
     }
 }

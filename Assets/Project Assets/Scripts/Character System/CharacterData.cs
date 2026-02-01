@@ -16,6 +16,9 @@ public class CharacterData : ScriptableObject
     public Sprite selectorImage;
     public Sprite uiIcon;
 
+    [Tooltip("Prefab visual con animación de victoria que se instanciará en la escena final")]
+    public GameObject victoryPrefab;
+
     [Header("Dialogue & Audio")]
     public CharacterDialogueData dialogueData;
 
