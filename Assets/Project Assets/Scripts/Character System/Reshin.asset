@@ -24,7 +24,7 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   selectorImage: {fileID: 5344405198162954603, guid: b8468e684c2306745805909dc77f7570, type: 3}
-  uiIcon: {fileID: 0}
+  uiIcon: {fileID: -5289136638678962570, guid: 3245460008fc3384ab5ab75a09a65347, type: 3}
   dialogueData: {fileID: 0}
   voiceBlip: {fileID: 0}
   references:

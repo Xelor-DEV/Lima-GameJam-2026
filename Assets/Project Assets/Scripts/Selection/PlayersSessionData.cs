@@ -5,6 +5,12 @@ using System;
 using System.Linq;
 
 [Serializable]
+public class MinigameScore
+{
+    public float value;
+}
+
+[Serializable]
 public class Player
 {
     public int index;
@@ -13,11 +19,18 @@ public class Player
     public List<InputDevice> devices = new List<InputDevice>();
     public CharacterData selectedCharacter;
     public List<CharacterData> lockedChars = new List<CharacterData>();
+    public MinigameScore[] scores;
 
-    public Player(int idx, Color col, PlayerInput input, CharacterDatabase db)
+    public Player(int idx, Color col, PlayerInput input, int totalMinigames, CharacterDatabase db)
     {
         index = idx;
         color = col;
+
+        scores = new MinigameScore[totalMinigames];
+        for (int i = 0; i < totalMinigames; i++)
+        {
+            scores[i] = new MinigameScore();
+        }
 
         foreach (var device in input.devices)
         {
@@ -47,6 +60,10 @@ public class PlayersSessionData : ScriptableObject
     [Header("Global Config")]
     public Color[] colors;
 
+    [Header("Session Settings")]
+    [Tooltip("Cantidad total de minijuegos en la sesión (ej. 3)")]
+    public int totalMinigames = 3;
+
     [Header("Current State")]
     public int count = 0;
     public List<Player> players = new List<Player>();
@@ -67,7 +84,7 @@ public class PlayersSessionData : ScriptableObject
             assignedColor = colors[newIndex % colors.Length];
         }
 
-        Player newPlayer = new Player(newIndex, assignedColor, input, charDB);
+        Player newPlayer = new Player(newIndex, assignedColor, input, totalMinigames,charDB);
         players.Add(newPlayer);
         count++;
     }
