@@ -38,6 +38,95 @@ MonoBehaviour:
     m_Localized: Salir
     m_Metadata:
       m_Items: []
+  - m_Id: 615396886654976
+    m_Localized: Opciones
+    m_Metadata:
+      m_Items: []
+  - m_Id: 615566063906816
+    m_Localized: Sonidos
+    m_Metadata:
+      m_Items: []
+  - m_Id: 615652370100224
+    m_Localized: Cinematica
+    m_Metadata:
+      m_Items: []
+  - m_Id: 623416911802368
+    m_Localized: Antes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 623505671663616
+    m_Localized: Despues
+    m_Metadata:
+      m_Items: []
+  - m_Id: 623267758157824
+    m_Localized: Volumen de UI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 623216755421184
+    m_Localized: Volumen de voces
+    m_Metadata:
+      m_Items: []
+  - m_Id: 623154943963136
+    m_Localized: Volumen de sfx
+    m_Metadata:
+      m_Items: []
+  - m_Id: 621577780801536
+    m_Localized: Volumen de musica
+    m_Metadata:
+      m_Items: []
+  - m_Id: 621427318534144
+    m_Localized: Volumen general
+    m_Metadata:
+      m_Items: []
+  - m_Id: 624066169090048
+    m_Localized: "\xBFEst\xE1s seguro de querer salir del juego?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 624413973360640
+    m_Localized: COMO JUGAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 624511650312192
+    m_Localized: "1) Busca a un amigo.\r\n2) Mueve las tijeras/pincel con el joystick
+      izquierdo y mant\xE9n pulsado A (en el mando de Xbox) o X (en el mando de PlayStation)
+      para cortar/pintar.\r\n3) \xA1Intenta ser lo m\xE1s preciso posible! Cuanto
+      m\xE1s preciso sea el resultado, mejor puntuaci\xF3n obtendr\xE1s.\r\n4) \xA1Divi\xE9rtete!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 627880901160960
+    m_Localized: Lenguaje
+    m_Metadata:
+      m_Items: []
+  - m_Id: 631460001427456
+    m_Localized: "Espa\xF1ol"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 631590628831232
+    m_Localized: 'Spanish
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 646726756282368
+    m_Localized: Saltar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 654758429011968
+    m_Localized: "Dise\xF1ador"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 654846337429504
+    m_Localized: Artista
+    m_Metadata:
+      m_Items: []
+  - m_Id: 654920568221696
+    m_Localized: "Programaci\xF3n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 655022699524096
+    m_Localized: Musica
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

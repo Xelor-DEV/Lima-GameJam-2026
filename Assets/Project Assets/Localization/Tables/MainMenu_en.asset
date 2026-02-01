@@ -38,6 +38,99 @@ MonoBehaviour:
     m_Localized: Exit
     m_Metadata:
       m_Items: []
+  - m_Id: 615396886654976
+    m_Localized: Options
+    m_Metadata:
+      m_Items: []
+  - m_Id: 615566063906816
+    m_Localized: Sounds
+    m_Metadata:
+      m_Items: []
+  - m_Id: 615652370100224
+    m_Localized: Review Cinematic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 621427318534144
+    m_Localized: Master Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 621577780801536
+    m_Localized: Music Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 623154943963136
+    m_Localized: Sfx Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 623216755421184
+    m_Localized: Voices Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 623267758157824
+    m_Localized: Ui Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 623416911802368
+    m_Localized: Before
+    m_Metadata:
+      m_Items: []
+  - m_Id: 623505671663616
+    m_Localized: After
+    m_Metadata:
+      m_Items: []
+  - m_Id: 624066169090048
+    m_Localized: Are you sure want to quit the game?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 624413973360640
+    m_Localized: HOW TO PLAY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 624511650312192
+    m_Localized: '1) Get a friend
+
+      2) Move the scissors/brush with the left
+      stick, hold down A (on Xbox controller) or X (on PlayStation controller) to
+      cut/paint
+
+      3) Try to be as accurate as possible! The more accurate the
+      result, the better the points.
+
+      4) Have fun'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 627880901160960
+    m_Localized: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 631460001427456
+    m_Localized: Spanish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 631590628831232
+    m_Localized: English
+    m_Metadata:
+      m_Items: []
+  - m_Id: 646726756282368
+    m_Localized: Skip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 654758429011968
+    m_Localized: Game Design
+    m_Metadata:
+      m_Items: []
+  - m_Id: 654846337429504
+    m_Localized: Artist
+    m_Metadata:
+      m_Items: []
+  - m_Id: 654920568221696
+    m_Localized: Programming
+    m_Metadata:
+      m_Items: []
+  - m_Id: 655022699524096
+    m_Localized: Music
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
