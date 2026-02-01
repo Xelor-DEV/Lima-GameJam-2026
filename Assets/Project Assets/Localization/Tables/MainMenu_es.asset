@@ -111,6 +111,22 @@ MonoBehaviour:
     m_Localized: Saltar
     m_Metadata:
       m_Items: []
+  - m_Id: 654758429011968
+    m_Localized: "Dise\xF1ador"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 654846337429504
+    m_Localized: Artista
+    m_Metadata:
+      m_Items: []
+  - m_Id: 654920568221696
+    m_Localized: "Programaci\xF3n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 655022699524096
+    m_Localized: Musica
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
