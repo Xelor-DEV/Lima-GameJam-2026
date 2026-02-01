@@ -1,9 +1,15 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
 
 public class GameSceneInitializer : MonoBehaviour
 {
+    [Header("Events")]
+    [Tooltip("Se dispara cuando un jugador ha sido instanciado y configurado. Conecta aquí al PatternMinigameManager.")]
+    public UnityEvent<int, GameObject, PlayerUIInfo> onPlayerReady;
+
     [Header("Game Configuration")]
     [Tooltip("Índice del minijuego actual (0 para el primero, 1 para el segundo, etc.)")]
     public int currentMinigameIndex = 0;
@@ -103,16 +109,47 @@ public class GameSceneInitializer : MonoBehaviour
                 Debug.LogWarning("El prefab del jugador no tiene el componente MovementBounds2D.");
             }
 
-            // 3. Asignar Controles
+            // 3. Asignar Controles (Lógica Modificada)
             PlayerInput pInput = playerObj.GetComponent<PlayerInput>();
             if (pInput != null)
             {
                 pInput.user.UnpairDevices();
-                foreach (var device in playerData.devices)
+
+                // --- NUEVA LÓGICA DE SELECCIÓN DE DISPOSITIVOS ---
+                List<InputDevice> devicesToPair = new List<InputDevice>();
+
+                if (sessionData.useDeviceIdsForPairing)
+                {
+                    // Opción A: Recuperar usando IDs (Más robusto entre escenas)
+                    foreach (int devId in playerData.devIds)
+                    {
+                        // InputSystem.GetDeviceById devuelve el dispositivo activo actual con ese ID
+                        InputDevice deviceFound = InputSystem.GetDeviceById(devId);
+
+                        if (deviceFound != null)
+                        {
+                            devicesToPair.Add(deviceFound);
+                        }
+                        else
+                        {
+                            Debug.LogWarning($"Jugador {i}: No se encontró dispositivo con ID {devId}. Puede estar desconectado.");
+                        }
+                    }
+                }
+                else
+                {
+                    // Opción B: Usar referencias directas (Puede fallar si son stale objects)
+                    devicesToPair = playerData.devices;
+                }
+
+                // Emparejar los dispositivos encontrados/seleccionados
+                foreach (var device in devicesToPair)
                 {
                     InputUser.PerformPairingWithDevice(device, pInput.user);
                 }
+                // -------------------------------------------------
             }
+            onPlayerReady.Invoke(i, playerObj, playerUIElements[i]);
         }
     }
 }

@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Project Assets/Scenes/Cut.unity
     guid: f1b11f6b2208153409bc1c51839a2000
+  - enabled: 1
+    path: Assets/Project Assets/Scenes/Paint.unity
+    guid: e59ccab65ade479499d3d55ba547243e
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 7a34d0493fc62d046931c829846bffbf, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

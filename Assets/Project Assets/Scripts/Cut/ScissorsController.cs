@@ -1,72 +1,107 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
+// Ya no requiere LineRenderer
 public class ScissorsController : MonoBehaviour
 {
-    public CuttingPattern currentPattern;
-    public TrailRenderer cutTrail;
+    [Header("Referencias")]
+    [Tooltip("El punto exacto de la punta de la tijera")]
+    public Transform cuttingTip;
 
-    [Header("Estado")]
-    public bool isCutting = false;
-    public bool levelComplete = false;
+    // Referencias inyectadas
+    private CuttingPattern currentTargetPattern;
+    private PlayerUIInfo linkedUI;
+    private PatternMinigameManager manager;
+    private int playerIndex;
 
-    [Range(0, 1)] public float currentProgress = 0f;
+    [Header("Configuración")]
+    public float pointsPerNode = 10f;
+    public float penaltyPerFrame = 0.5f;
     public float winThreshold = 0.98f;
 
-    void Update()
-    {
-        if (levelComplete) return;
+    [HideInInspector] public Color lineColor; // El manager lo asigna, pero solo lo usaremos para pasarlo al patrón
 
-        // Mientras mantengas presionado
-        if (Input.GetMouseButton(0))
+    // Estado
+    private bool isCuttingInputActive = false;
+    private bool patternFinished = false;
+
+    // --- SETUP ---
+    public void Initialize(int pIndex, PlayerUIInfo ui, PatternMinigameManager mgr)
+    {
+        playerIndex = pIndex;
+        linkedUI = ui;
+        manager = mgr;
+    }
+
+    public void SetCurrentPattern(CuttingPattern pattern)
+    {
+        currentTargetPattern = pattern;
+        patternFinished = false;
+
+        // --- NUEVO: Inicializar visuales del patrón ---
+        // Le decimos al patrón de qué color debe pintarse inicialmente
+        if (currentTargetPattern != null)
         {
-            ProcessCut();
-        }
-        else
-        {
-            StopCutting();
+            currentTargetPattern.InitializeVisuals(lineColor);
         }
     }
 
-    void ProcessCut()
+    // --- INPUT SYSTEM CALLBACK ---
+    public void OnCutAction(InputAction.CallbackContext context)
     {
-        if (currentPattern == null) return;
+        if (context.performed) isCuttingInputActive = true;
+        else if (context.canceled) isCuttingInputActive = false;
+    }
 
-        isCutting = true;
-        if (cutTrail) cutTrail.emitting = true;
+    // --- LOOP PRINCIPAL ---
+    void Update()
+    {
+        if (patternFinished || currentTargetPattern == null || cuttingTip == null) return;
 
-        // 1. CHEQUEO DE SEGURIDAD
-        // Verificamos si estás dentro del margen, pero NO detenemos el corte si fallas.
-        bool isSafe = currentPattern.IsPositionSafe(transform.position);
+        if (isCuttingInputActive)
+        {
+            ProcessCutMovement();
+        }
+    }
+
+    void ProcessCutMovement()
+    {
+        Vector3 tipPos = cuttingTip.position;
+
+        // Lógica de juego
+        bool isSafe = currentTargetPattern.IsPositionSafe(tipPos);
 
         if (isSafe)
         {
-            // Solo si es seguro, intentamos "comer" nodos y avanzar progreso
-            currentProgress = currentPattern.UpdateCuttingProgress(transform.position);
+            // Intentar cortar y sumar puntos
+            // Ahora TryCutNode se encarga de actualizar la visual del patrón
+            if (currentTargetPattern.TryCutNode(tipPos))
+            {
+                if (linkedUI != null) linkedUI.AddScore(pointsPerNode);
+            }
 
             // Chequeo de victoria
-            if (currentProgress >= winThreshold)
+            if (currentTargetPattern.GetProgress() >= winThreshold)
             {
-                WinGame();
+                CompletePattern();
             }
         }
         else
         {
-            // ESTÁS FUERA DEL MARGEN
-            // Aquí ya no reseteamos nada, solo avisamos (futuro sistema de puntos)
-            Debug.Log("¡Cuidado! Te saliste del margen (Perdiendo puntos...)");
+            // Penalización
+            if (linkedUI != null) linkedUI.AddScore(-penaltyPerFrame);
         }
     }
 
-    void StopCutting()
+    void CompletePattern()
     {
-        isCutting = false;
-        if (cutTrail) cutTrail.emitting = false;
+        patternFinished = true;
+        isCuttingInputActive = false;
+        manager.OnPatternCompleted(playerIndex);
     }
 
-    void WinGame()
+    public void ForceAddScore(float amount)
     {
-        levelComplete = true;
-        StopCutting();
-        Debug.Log("¡GANASTE! Figura completada.");
+        if (linkedUI != null) linkedUI.AddScore(amount);
     }
 }

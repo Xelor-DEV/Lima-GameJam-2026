@@ -23,7 +23,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  selectorImage: {fileID: 5344405198162954603, guid: b8468e684c2306745805909dc77f7570, type: 3}
+  selectorImage: {fileID: -4957685090608887844, guid: 522e537a97cdead488abbd6c16ff7143, type: 3}
   uiIcon: {fileID: -5289136638678962570, guid: 3245460008fc3384ab5ab75a09a65347, type: 3}
   dialogueData: {fileID: 0}
   voiceBlip: {fileID: 0}

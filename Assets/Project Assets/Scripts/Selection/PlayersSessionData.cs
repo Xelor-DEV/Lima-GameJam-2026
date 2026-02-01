@@ -64,6 +64,9 @@ public class PlayersSessionData : ScriptableObject
     [Tooltip("Cantidad total de minijuegos en la sesión (ej. 3)")]
     public int totalMinigames = 3;
 
+    [Tooltip("Si es TRUE, buscará los dispositivos usando sus IDs (Más seguro entre escenas). Si es FALSE, usará las referencias directas guardadas.")]
+    public bool useDeviceIdsForPairing = true; // <--- NUEVO BOOLEANO
+
     [Header("Current State")]
     public int count = 0;
     public List<Player> players = new List<Player>();

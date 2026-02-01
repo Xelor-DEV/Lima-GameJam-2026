@@ -16,3 +16,4 @@ MonoBehaviour:
   useDedicatedSource: 0
   clips:
   - {fileID: 11400000, guid: 93b8f13548d51694c969977bcf9558a2, type: 2}
+  - {fileID: 11400000, guid: 1d6626848ce838e45b287a3cc534d365, type: 2}
