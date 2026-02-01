@@ -20,6 +20,11 @@ MonoBehaviour:
     m_ReadOnly: 1
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 532f1fec4951d6f4e88ba6ddfdd1ea15
+    m_Address: Assets/Project Assets/Localization/Tables/RoninSays Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6448db759ed2f0f44af70cb6a0b195cd
     m_Address: Assets/Project Assets/Localization/Tables/CharacterSelection Shared
       Data.asset

@@ -148,8 +148,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fillDotPrefab: {fileID: 5691563481007338502, guid: a3cde66d2f8a90e419d210b9db81eebf, type: 3}
-  gridDensity: 0.2
-  brushRadius: 0.3
+  gridDensity: 0.1
+  brushRadius: 0.2
 --- !u!1 &5492643836392243571
 GameObject:
   m_ObjectHideFlags: 0

@@ -35,6 +35,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-en
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c5fbf51d62ca2f14bb8ec833e3d597d3
+    m_Address: RoninSays_en
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 97b1775ec3c96df4aadc7cc0cb24b59e, type: 2}
   m_SchemaSet:
