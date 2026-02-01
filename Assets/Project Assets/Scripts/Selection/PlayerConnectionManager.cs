@@ -25,6 +25,7 @@ public class PlayerConnectionManager : MonoBehaviour
 
     private Dictionary<int, bool> _playerReadyStates = new Dictionary<int, bool>();
     private Coroutine _countdownCoroutine;
+    private bool _gameHasStarted = false;
 
     private void Awake()
     {
@@ -49,6 +50,10 @@ public class PlayerConnectionManager : MonoBehaviour
         if (container != null)
         {
             input.transform.SetParent(container, false);
+
+            // --- NUEVA MEJORA: Feedback de entrada ---
+            input.transform.localScale = Vector3.zero;
+            input.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
         }
 
         _playerReadyStates[input.playerIndex] = false;
@@ -62,6 +67,8 @@ public class PlayerConnectionManager : MonoBehaviour
 
     public void OnPlayerLeft(PlayerInput input)
     {
+        if (_gameHasStarted) return;
+
         if (session != null)
         {
             session.RemovePlayer(input);
@@ -160,6 +167,8 @@ public class PlayerConnectionManager : MonoBehaviour
         if (countdownText != null) countdownText.text = "0";
 
         Debug.Log("GO!");
+        _gameHasStarted = true;
+
         OnAllPlayersReady?.Invoke();
 
         // Cambiar de escena

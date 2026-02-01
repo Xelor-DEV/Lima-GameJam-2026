@@ -545,7 +545,7 @@ MonoBehaviour:
   session: {fileID: 11400000, guid: 21c68dcbd52e3fe4ead68840337d7c45, type: 2}
   container: {fileID: 1286283272}
   countdownText: {fileID: 1575939342}
-  countdownSeconds: 3
+  countdownSeconds: 5
   minPlayersRequired: 2
   sceneToLoad: Cut
   OnAllPlayersReady:

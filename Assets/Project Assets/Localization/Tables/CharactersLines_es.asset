@@ -19,7 +19,8 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 168231944192
-    m_Localized: "\xA1Contemplen los 'Dedos Divinos' de Yaguchi!"
+    m_Localized: "\xA1Prep\xE1rate! Ver\xE1s por qu\xE9 me llaman el 'Divino Haruo'
+      de Mizonokuchi."
     m_Metadata:
       m_Items: []
   - m_Id: 756499857408
@@ -39,11 +40,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 79437280821248
-    m_Localized: Ya llegue
+    m_Localized: "Yo siempre gano con mis dise\xF1os"
     m_Metadata:
       m_Items: []
   - m_Id: 79750196871168
-    m_Localized: Niwe test
+    m_Localized: "Ver\xE1s c\xF3mo te derroto hermana"
     m_Metadata:
       m_Items: []
   references:

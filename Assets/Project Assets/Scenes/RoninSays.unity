@@ -341,6 +341,7 @@ MonoBehaviour:
   patternGenerator: {fileID: 192099442}
   iconUiPrefab: {fileID: 2978197603825112047, guid: 6096e37e15ffbe240b0c2c390e5fcf33, type: 3}
   winnerBonus: 100
+  startMessageDuration: 5
   locStart:
     m_TableReference:
       m_TableCollectionName: GUID:532f1fec4951d6f4e88ba6ddfdd1ea15

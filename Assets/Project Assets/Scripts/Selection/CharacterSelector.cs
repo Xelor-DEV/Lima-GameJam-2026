@@ -155,6 +155,9 @@ public class CharacterSelector : MonoBehaviour
         _isAnimating = true;
         _visualIndex += direction;
 
+        centerSlot.DOComplete();
+        centerSlot.DOPunchPosition(new Vector3(direction * 15f, 0, 0), 0.2f, 5, 0.5f);
+
         // Determine targets based on direction
         RectTransform outgoing = centerSlot; // Center always leaves
         RectTransform incoming = (direction > 0) ? rightSlot : leftSlot;
@@ -174,6 +177,9 @@ public class CharacterSelector : MonoBehaviour
         {
             SwapSlotReferences(direction);
             UpdateVisuals();
+
+            // --- NUEVA MEJORA: Punch en el nombre al cambiar ---
+            nameText.transform.DOPunchScale(Vector2.one * 0.15f, 0.2f);
             _isAnimating = false;
         });
     }
@@ -229,42 +235,29 @@ public class CharacterSelector : MonoBehaviour
     /// <summary>
     /// Fuerza la visualización hacia un personaje específico (usado por Cheat Codes)
     /// </summary>
+    // Actualización de JumpToCharacter en CharacterSelector.cs (llamado desde CheatCodeDetector)
     public void JumpToCharacter(CharacterData targetChar)
     {
-        // 1. Asegurarnos de que la lista interna esté actualizada (incluyendo el secreto)
         RefreshCharacterList();
 
-        // 2. Buscar en qué posición visual quedó ese personaje
-        // OJO: Buscamos en _availableIndices porque es la lista que usa el carrusel
-        int targetVisualIndex = -1;
+        int targetVisualIndex = _availableIndices.FindIndex(id => charDatabase.GetCharacter(id) == targetChar);
 
-        for (int i = 0; i < _availableIndices.Count; i++)
-        {
-            int realDbIndex = _availableIndices[i];
-            if (charDatabase.GetCharacter(realDbIndex) == targetChar)
-            {
-                targetVisualIndex = i;
-                break;
-            }
-        }
-
-        // 3. Si lo encontramos, movemos el carrusel
         if (targetVisualIndex != -1)
         {
-            // Cancelamos cualquier animación en curso para evitar conflictos
             _isAnimating = false;
-            DOTween.Kill(leftSlot);
-            DOTween.Kill(centerSlot);
-            DOTween.Kill(rightSlot);
-
-            // Actualizamos el índice visual actual
             _visualIndex = targetVisualIndex;
-
-            // Forzamos la actualización visual instantánea
             UpdateVisuals(instant: true);
 
-            // Opcional: Feedback visual (sonido o parpadeo) de que se desbloqueó
-            transform.DOPunchScale(Vector3.one * 0.2f, 0.3f);
+            // --- NUEVA MEJORA: DESBLOQUEO ÉPICO ---
+            Sequence unlockSeq = DOTween.Sequence();
+            // Flash blanco
+            centerSlot.GetComponent<Image>().DOBlendableColor(Color.white, 0.1f).SetLoops(2, LoopType.Yoyo);
+            // Salto de escala grande
+            unlockSeq.Append(transform.DOPunchScale(Vector3.one * 0.4f, 0.6f, 10, 1f));
+            // Agitación de cámara (simulada en el objeto)
+            unlockSeq.Join(transform.DOShakePosition(0.5f, 20f, 20));
+
+            Debug.Log("¡PERSONAJE SECRETO DESBLOQUEADO!");
         }
     }
 
@@ -290,13 +283,34 @@ public class CharacterSelector : MonoBehaviour
             p.selectedCharacter = ready ? selectedChar : null;
         }
 
+        if (ready)
+        {
+            centerSlot.DOScale(1.1f, 0.3f).SetEase(Ease.OutBack);
+        }
+        else
+        {
+            centerSlot.DOScale(1.0f, 0.2f).SetEase(Ease.InQuad);
+        }
+
         OnReadyStatusChanged?.Invoke(_playerIndex, _isReady);
         HandleDialogueUI(ready, selectedChar);
     }
 
     private void HandleDialogueUI(bool show, CharacterData charData)
     {
-        dialogueContainer.SetActive(show);
+        if (show)
+        {
+            dialogueContainer.SetActive(true);
+            dialogueContainer.transform.localScale = Vector3.zero;
+            dialogueContainer.transform.DOScale(Vector3.one, 0.4f).SetEase(Ease.OutBack);
+        }
+        else
+        {
+            dialogueContainer.transform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack)
+                .OnComplete(() => dialogueContainer.SetActive(false));
+        }
+
+        //dialogueContainer.SetActive(show);
         nameText.color = show ? Color.yellow : Color.white;
 
         if (_typingCoroutine != null) StopCoroutine(_typingCoroutine);

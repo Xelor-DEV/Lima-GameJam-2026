@@ -19,7 +19,8 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 168231944192
-    m_Localized: "Behold Yaguchi's \u2018Divine Fingers\u2019!"
+    m_Localized: Get ready! You're about to see why they call me 'The Divine Haruo'
+      of Mizonokuchi.
     m_Metadata:
       m_Items: []
   - m_Id: 756499857408
@@ -39,11 +40,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 79437280821248
-    m_Localized: Ore sanjou
+    m_Localized: My designs always come out on top
     m_Metadata:
       m_Items: []
   - m_Id: 79750196871168
-    m_Localized: Niwe test
+    m_Localized: You're going down, sister. Just watch
     m_Metadata:
       m_Items: []
   references:

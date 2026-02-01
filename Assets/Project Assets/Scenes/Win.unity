@@ -644,7 +644,7 @@ MonoBehaviour:
   memory: {fileID: 11400000, guid: d7cea7e4bfb42b5418e9e301809736fb, type: 2}
   audioSourcePrefab: {fileID: 7761937444682197948, guid: d1ab0e0a3e28a45499a51542d491ed10, type: 3}
   playMusicOnAwake: 1
-  awakeMusic: {fileID: 11400000, guid: 93b8f13548d51694c969977bcf9558a2, type: 2}
+  awakeMusic: {fileID: 11400000, guid: 4b850f172f3dd494f8ff78ae4623582c, type: 2}
   applyMemoryToMixer: 1
   audioLibraries:
   - {fileID: 11400000, guid: 6e265038fb405e848b5f155c47697616, type: 2}
