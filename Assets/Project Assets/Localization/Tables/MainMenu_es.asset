@@ -51,11 +51,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 623416911802368
-    m_Localized: Antes
+    m_Localized: Anterior
     m_Metadata:
       m_Items: []
   - m_Id: 623505671663616
-    m_Localized: Despues
+    m_Localized: Siguiente
     m_Metadata:
       m_Items: []
   - m_Id: 623267758157824
