@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bc05168e29049d46ab6b888928bf9f2, type: 3}
   m_Name: SFX_DeselectCharacter
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: fcd3764fc8f8a774dabcb69e5b9fb8cd, type: 3}
+  clip: {fileID: 8300000, guid: 35741e803b5d2f047a3daef8d3629cd2, type: 3}
   isLoopable: 0

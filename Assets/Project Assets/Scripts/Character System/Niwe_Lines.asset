@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 617df428c1a3954438cfc5be3f0ed633, type: 3}
+  m_Name: Niwe_Lines
+  m_EditorClassIdentifier: 
+  randomPhrases:
+  - m_TableReference:
+      m_TableCollectionName: GUID:75dd5195453982244adc04e6acfa7679
+    m_TableEntryReference:
+      m_KeyId: 643469658275840
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  onMinigameSuccess:
+  - m_TableReference:
+      m_TableCollectionName: GUID:75dd5195453982244adc04e6acfa7679
+    m_TableEntryReference:
+      m_KeyId: 756499857408
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  onMinigameFail:
+  - m_TableReference:
+      m_TableCollectionName: GUID:75dd5195453982244adc04e6acfa7679
+    m_TableEntryReference:
+      m_KeyId: 858907983872
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  victoryPhrases: []
+  references:
+    version: 2
+    RefIds: []

@@ -5,6 +5,7 @@ using TMPro;
 using System.Collections.Generic;
 using UnityEngine.Localization;
 using DG.Tweening;
+using NexusChaser.CycloneAMS;
 using System.Collections;
 
 public class SimonPlayerController : MonoBehaviour
@@ -20,6 +21,10 @@ public class SimonPlayerController : MonoBehaviour
     public float minBlinkSpeed = 1.0f; // Antes era 2f
     [Tooltip("Velocidad del parpadeo cuando el tiempo está por acabarse (Rápido)")]
     public float maxBlinkSpeed = 4.0f; // Antes era 8f (Bájalo a 3f si aún es muy rápido)
+
+    [Header("Sonidos (Cyclone AMS)")]
+    [SerializeField] private CycloneClip successClip;
+    [SerializeField] private CycloneClip errorClip;
 
     public PlayerUIInfo UiInfo { get; private set; }
 
@@ -79,6 +84,9 @@ public class SimonPlayerController : MonoBehaviour
 
     public void EnableGame(bool enable)
     {
+        // Si el script está deshabilitado (por Freeze), no permitimos re-activar
+        if (!this.enabled) return;
+
         isGameActive = enable;
         if (enable)
         {
@@ -90,6 +98,12 @@ public class SimonPlayerController : MonoBehaviour
 
     void Update()
     {
+        if (manager != null && manager.IsGameFinished)
+        {
+            FreezeController();
+            return;
+        }
+
         if (!isGameActive || isShowingError) return;
 
         // --- LÓGICA DE ESPERA INICIAL ---
@@ -141,7 +155,7 @@ public class SimonPlayerController : MonoBehaviour
 
     public void OnInput(InputAction.CallbackContext context)
     {
-        if (!isGameActive || isShowingError || !context.performed) return;
+        if (!this.enabled || !isGameActive || isShowingError || !context.performed) return;
         if (context.action.name.Contains("Look") || context.action.name.Contains("Mouse")) return;
 
         if (waitingForFirstInput)
@@ -182,6 +196,8 @@ public class SimonPlayerController : MonoBehaviour
         lastInputTime = Time.time;
         if (UiInfo != null) UiInfo.AddScore(pointsPerStep);
 
+        PlaySound(successClip);
+
         // Pop Out Effect
         if (currentStepIndex < uiIcons.Count && uiIcons[currentStepIndex] != null)
         {
@@ -189,7 +205,8 @@ public class SimonPlayerController : MonoBehaviour
             completedIcon.color = Color.white;
             completedIcon.transform
                 .DOScale(Vector3.one * 1.5f, 0.15f)
-                .OnComplete(() => {
+                .OnComplete(() =>
+                {
                     completedIcon.transform
                         .DOScale(Vector3.zero, 0.15f)
                         .OnComplete(() => completedIcon.gameObject.SetActive(false));
@@ -208,6 +225,8 @@ public class SimonPlayerController : MonoBehaviour
 
     private void HandleMistake(LocalizedString errorMsg)
     {
+        PlaySound(errorClip);
+
         StartCoroutine(ShowErrorAndResetRoutine(errorMsg));
     }
 
@@ -215,15 +234,17 @@ public class SimonPlayerController : MonoBehaviour
     {
         isShowingError = true;
 
+        // Penalización (Solo si no está congelado, el UIInfo lo gestiona también)
+        if (UiInfo != null) UiInfo.AddScore(-penaltyOnFail);
+
+        // ... (Lógica visual de error se mantiene) ...
+        // Reseteo de iconos visuales
         if (currentStepIndex < uiIcons.Count && uiIcons[currentStepIndex] != null)
         {
             uiIcons[currentStepIndex].transform.DOKill();
             uiIcons[currentStepIndex].transform.localScale = Vector3.one;
             uiIcons[currentStepIndex].color = Color.white;
         }
-
-        if (UiInfo != null) UiInfo.AddScore(-penaltyOnFail);
-
         foreach (var obj in initialIconObjects)
         {
             if (obj != null)
@@ -246,15 +267,59 @@ public class SimonPlayerController : MonoBehaviour
 
         yield return new WaitForSeconds(errorShowDuration);
 
+        // Reset Lógico
         currentStepIndex = 0;
-
-        if (myStatusText != null)
-        {
-            myStatusText.color = Color.white;
-            myStatusText.text = "";
-        }
+        if (myStatusText != null) { myStatusText.color = Color.white; myStatusText.text = ""; }
 
         isShowingError = false;
         waitingForFirstInput = true;
+    }
+
+    public void FreezeController()
+    {
+        isGameActive = false;
+        StopAllCoroutines();
+
+        // 1. Limpieza de Texto
+        if (myStatusText != null) myStatusText.DOKill();
+
+        // 2. Limpieza de Iconos (Bug fix)
+        // El bug era que el último icono se quedaba grande o visible.
+        // Aquí forzamos que todos los iconos se reseteen o desaparezcan según la lógica del juego.
+        foreach (var icon in uiIcons)
+        {
+            if (icon != null)
+            {
+                icon.transform.DOKill(); // Mata el tween de "Pop Out"
+                icon.gameObject.SetActive(false); // Oculta forzosamente el icono
+            }
+        }
+
+        // Si usas initialIconObjects para mostrar toda la secuencia al fallar,
+        // también asegúrate de resetearlos.
+        foreach (var obj in initialIconObjects)
+        {
+            if (obj != null)
+            {
+                obj.transform.DOKill();
+                // Dependiendo de tu diseño, quizás quieras ocultarlos todos al final
+                // para que el contenedor quede vacío.
+                obj.SetActive(false);
+            }
+        }
+
+        if (UiInfo != null) UiInfo.LockScoring();
+        this.enabled = false;
+    }
+
+    private void PlaySound(CycloneClip clip)
+    {
+        if (clip == null) return;
+
+        // Verificamos si la instancia existe y si su GameObject no ha sido destruido
+        if (CycloneAudioDriver.Instance != null && CycloneAudioDriver.Instance.gameObject != null)
+        {
+            CycloneAudioDriver.Instance.PlayOneShot(clip);
+        }
     }
 }

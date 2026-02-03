@@ -24,6 +24,9 @@ public class PatternMinigameManager : MonoBehaviour
     // Bandera para asegurar que solo se dispara una vez
     private bool gameEnded = false;
 
+    public bool IsGameFinished => gameEnded;
+
+
     // --- MÉTODO PÚBLICO (Conectado al GameInitializer) ---
     public void RegisterPlayer(int playerIndex, GameObject playerObj, PlayerUIInfo uiInfo)
     {
@@ -120,13 +123,13 @@ public class PatternMinigameManager : MonoBehaviour
             Debug.Log($"Ventaja de {winnerBonusAmount} puntos otorgada al Jugador {pIndex}");
         }
 
-        // 2. Desactivar inputs de los demás (Opcional, pero recomendado para limpieza visual)
+        // 2. CONGELAR A TODOS (incluyendo al ganador)
+        // Esto detiene sus Updates, sonidos y BLOQUEA sus UIs para que no entren más puntos.
         foreach (var kvp in playerControllers)
         {
             if (kvp.Value != null)
             {
-                // Podrías añadir un método en ScissorsController para .DisableInput() si quieres
-                // kvp.Value.enabled = false; 
+                kvp.Value.FreezeController();
             }
         }
 

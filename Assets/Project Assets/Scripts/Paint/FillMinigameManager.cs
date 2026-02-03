@@ -21,6 +21,8 @@ public class FillMinigameManager : MonoBehaviour
 
     private bool gameEnded = false;
 
+    public bool IsGameFinished => gameEnded;
+
     // --- MÉTODO PÚBLICO para GameSceneInitializer ---
     public void RegisterPlayer(int playerIndex, GameObject playerObj, PlayerUIInfo uiInfo)
     {
@@ -108,8 +110,13 @@ public class FillMinigameManager : MonoBehaviour
             playerControllers[pIndex].ForceAddScore(winnerBonusAmount);
         }
 
-        // Opcional: Desactivar inputs
-        foreach (var ctrl in playerControllers.Values) ctrl.enabled = false;
+        foreach (var ctrl in playerControllers.Values)
+        {
+            if (ctrl != null)
+            {
+                ctrl.FreezeController();
+            }
+        }
 
         OnMinigameEnded?.Invoke();
     }

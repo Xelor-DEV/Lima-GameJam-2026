@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bc05168e29049d46ab6b888928bf9f2, type: 3}
   m_Name: SFX_Paint
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: e919435cc6317e245908fa102d2f22f2, type: 3}
+  clip: {fileID: 8300000, guid: 365ce26a044edce408199a9506427c10, type: 3}
   isLoopable: 1

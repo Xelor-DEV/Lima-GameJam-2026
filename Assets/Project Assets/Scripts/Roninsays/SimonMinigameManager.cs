@@ -38,6 +38,8 @@ public class SimonMinigameManager : MonoBehaviour
     private Dictionary<int, SimonPlayerController> controllers = new Dictionary<int, SimonPlayerController>();
     private bool gameEnded = false;
 
+    public bool IsGameFinished => gameEnded;
+
     // --- REGISTER PLAYER (Igual que antes) ---
     public void RegisterPlayer(int playerIndex, GameObject playerObj, PlayerUIInfo uiInfo)
     {
@@ -193,7 +195,11 @@ public class SimonMinigameManager : MonoBehaviour
 
         foreach (var ctrl in controllers.Values)
         {
-            ctrl.EnableGame(false);
+            // En vez de solo EnableGame(false), llamamos al Freeze total
+            if (ctrl != null)
+            {
+                ctrl.FreezeController();
+            }
         }
 
         locWinner.Arguments = new object[] { playerIndex + 1 };

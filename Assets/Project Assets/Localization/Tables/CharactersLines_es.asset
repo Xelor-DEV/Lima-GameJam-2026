@@ -24,27 +24,204 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 756499857408
-    m_Localized: "\xA1K.O.! \xA1Ni Akira podr\xEDa haberme ganado en esto!"
+    m_Localized: "\xA1No me ganar\xE1n en este Bonus Stage!"
     m_Metadata:
       m_Items: []
   - m_Id: 858907983872
-    m_Localized: "\xA1Combo de 99 hits! \xA1Perfect!"
+    m_Localized: "\xA1Siente el poder de los 'Dedos Bestiales' Yaguchi!"
     m_Metadata:
       m_Items: []
   - m_Id: 1047555194880
-    m_Localized: "\xA1Maldici\xF3n! \xA1Este control tiene lag!"
+    m_Localized: "\xA1Voy a meter un combo de 20 hits en este trazo!"
     m_Metadata:
       m_Items: []
   - m_Id: 1566977802240
-    m_Localized: Test
+    m_Localized: "\xA1Alg\xFAn d\xEDa ser\xE9 el mejor del mundo en Street Fighter
+      II, ya lo ver\xE1n!"
     m_Metadata:
       m_Items: []
-  - m_Id: 79437280821248
-    m_Localized: "Yo siempre gano con mis dise\xF1os"
+  - m_Id: 1040749850771456
+    m_Localized: "\xA1Esta palanca no est\xE1 respondiendo bien, maldici\xF3n!"
     m_Metadata:
       m_Items: []
-  - m_Id: 79750196871168
-    m_Localized: "Ver\xE1s c\xF3mo te derroto hermana"
+  - m_Id: 1041487905669120
+    m_Localized: "\xA1Gwah! \xA1Siento que la limusina de Jiiya me va a pasar por
+      encima otra vez!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1043387489173504
+    m_Localized: "\xA1Mam\xE1, ahora no! \xA1No ves que estoy en medio de una racha
+      de victorias!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1043616032604160
+    m_Localized: "\xA1Perfect! \xA1Como en mis mejores d\xEDas en el Game Center!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1045443608297472
+    m_Localized: "\xA1Uf! \xA1Ese \xFAltimo movimiento fue de nivel profesional!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1045525774712832
+    m_Localized: "\xA1Todav\xEDa me queda un cr\xE9dito y voy por m\xE1s!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1045615197274112
+    m_Localized: "\xA1Contemplen la precisi\xF3n de mis Dedos Bestiales!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1045692271804416
+    m_Localized: "\xA1Ni siquiera sud\xE9! Esto es m\xE1s f\xE1cil que el Zangief
+      de la CPU"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1045847532355584
+    m_Localized: "\xA1Si Oono estuviera viendo, seguro me dar\xEDa un golpe por presumir!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1045942524952576
+    m_Localized: "\xA1Maldici\xF3n! \xA1Ese bot\xF3n se qued\xF3 pegado!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1046556977905664
+    m_Localized: "\xA1Seguro el segundo jugador tiene ventaja en este juego!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1046559519653888
+    m_Localized: "\xA1Dame otra ficha, esta partida no cuenta!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1046562174648320
+    m_Localized: "\xA1Me han hecho un counter justo cuando iba a ganar!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1046830840791040
+    m_Localized: "\xA1Esto no es justo! \xA1Akira seguro hizo trampa!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1046961040375808
+    m_Localized: "\xA1No puede ser! \xA1Este mix-up me tiene tan confundido como
+      el Phobos de Hidaka en aquella partida de Darkstalkers!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1047358219993088
+    m_Localized: "\xA1D-Diez seguidos...! \xA1Es la misma humillaci\xF3n que cuando
+      Hidaka nos barri\xF3 a todo el equipo de Shibuya ella sola!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1047361307000832
+    m_Localized: "\xA1Mis dedos no responden! \xA1Me siento tan acabado como cuando
+      Hidaka me dio esa paliza tras haber dejado las arcadias!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1048844882657280
+    m_Localized: "\xA1Como dice Guile: 'Vete a casa y s\xE9 un hombre de familia'!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1049855940608000
+    m_Localized: "\xA1Miren mis iniciales en la pantalla: Y-A-G!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1050041941213184
+    m_Localized: "\xA1Esto fue pan comido! Sigan practicando, novatos."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1050082433024000
+    m_Localized: "\xA1You Win! \xA1Mi nombre estar\xE1 en el primer puesto del ranking!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1050134912155648
+    m_Localized: "\xA1He dominado este juego con una sola ficha!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1050193871486976
+    m_Localized: "\xA1No hay rival para el orgullo de Mizonokuchi!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1063988308197376
+    m_Localized: "\xA1Los esp\xEDritus dicen que hoy voy a ganar yo!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1063991919493120
+    m_Localized: "Recolectar los cuatro sellos fue m\xE1s f\xE1cil que aguantarte"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1063992586387456
+    m_Localized: "\xBFCrees que Ronin es un h\xE9roe? Por favor, es una serpiente
+      c\xF3smica seria"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1063993664323584
+    m_Localized: "El ritual del Piri Piri me dio paciencia... pero se me est\xE1
+      acabando"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1064296627290112
+    m_Localized: "Mi dise\xF1o va a quedar mejor que tu garabato"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1064316827058176
+    m_Localized: "\xA1Conc\xE9ntrate, Niwe! \xA1Es para el Ani Xeati, no para jugar!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1065295874080768
+    m_Localized: "\xA1Ja! Demasiado lenta para m\xED"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1065472735297536
+    m_Localized: "\xA1Toma! As\xED se hace una m\xE1scara"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1065585348165632
+    m_Localized: "Ni con tu imaginaci\xF3n me alcanzas"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1065709973520384
+    m_Localized: "\xBFVes? La experiencia gana"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1065804823511040
+    m_Localized: "\xA1Punto para la experta espiritual!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1065903305768960
+    m_Localized: "\xA1Oye! \xA1Me empujaste!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1066291199197184
+    m_Localized: "Los esp\xEDritus me distrajeron..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1066401123516416
+    m_Localized: "\xA1Eso no vale, quiero revancha!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1066501522571264
+    m_Localized: "Ugh, se me resbal\xF3 la mano"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1066613988638720
+    m_Localized: "\xA1Suerte de principiante!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1066761598779392
+    m_Localized: "\xA1Soy la reina del Ani Xeati! \xA1Sup\xE9ralo!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1066889780903936
+    m_Localized: "Regresa al mundo espiritual, hermanito. \xA1Gan\xE9!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1066955816026112
+    m_Localized: "\xBFQui\xE9n complet\xF3 su prop\xF3sito hoy? \xA1Yo!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1067077039800320
+    m_Localized: "\xA1Sii\xED! Mi m\xE1scara es la mejor de todas"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1067252877606912
+    m_Localized: Buen intento, Niwe. Pero yo soy la campeona
     m_Metadata:
       m_Items: []
   references:

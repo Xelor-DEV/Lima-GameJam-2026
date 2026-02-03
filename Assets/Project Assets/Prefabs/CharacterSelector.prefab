@@ -462,7 +462,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 35
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -902,7 +902,7 @@ MonoBehaviour:
   dialogueText: {fileID: 6520579973228290689}
   animDuration: 0.3
   animEase: 6
-  typeSpeed: 0.04
+  typeSpeed: 0.025
   moveSfx: {fileID: 11400000, guid: de38518ae314a72458f10e078e0d21b9, type: 2}
   selectSfx: {fileID: 11400000, guid: 453f69508e0070c4a8e57b3270239303, type: 2}
   cancelSfx: {fileID: 11400000, guid: d388bc7c866108c4a85bf9a8233b781b, type: 2}
@@ -950,6 +950,9 @@ MonoBehaviour:
   sessionData: {fileID: 11400000, guid: 21c68dcbd52e3fe4ead68840337d7c45, type: 2}
   characterSelector: {fileID: 6730628081187373975}
   playerInput: {fileID: 6397596673066101161}
+  unlockBellSfx: {fileID: 11400000, guid: 27fdc5efc65cd1a4ea66fbc54deb4d94, type: 2}
+  announcerSfx: {fileID: 11400000, guid: fa60dd98fcd5dd048af49c06fb087f87, type: 2}
+  announcerDelay: 0.3
 --- !u!1 &6936571120921322684
 GameObject:
   m_ObjectHideFlags: 0

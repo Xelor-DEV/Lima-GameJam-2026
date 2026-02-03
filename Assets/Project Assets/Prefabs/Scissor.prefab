@@ -408,6 +408,9 @@ MonoBehaviour:
   animationSpeed: 0.15
   cutLoopSfx: {fileID: 11400000, guid: e5dff1ef3ff0eff449da976c876e503e, type: 2}
   completeSfx: {fileID: 11400000, guid: eaa3c090de55d7b40bb3efbf9cb4c573, type: 2}
+  minPitch: 0.5
+  maxPitch: 1.5
+  noiseStep: 0.3
   pointsPerNode: 10
   penaltyPerFrame: 0.5
   winThreshold: 0.98

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using NexusChaser.CycloneAMS; // Importar tu namespace de audio
+using System.Collections; // Necesario para IEnumerator
 
 public class CheatCodeDetector : MonoBehaviour
 {
@@ -34,6 +36,12 @@ public class CheatCodeDetector : MonoBehaviour
     [SerializeField] private PlayersSessionData sessionData;
     [SerializeField] private CharacterSelector characterSelector;
     [SerializeField] private PlayerInput playerInput; // Solo para referencia de índice
+
+    [Header("Audio Feedback (Unlock)")]
+    [SerializeField] private CycloneClip unlockBellSfx;   // Sonido 1: La Campana (Impacto)
+    [SerializeField] private CycloneClip announcerSfx;    // Sonido 2: El Anunciador (Hype)
+    [Tooltip("Tiempo en segundos a esperar antes de que hable el anunciador.")]
+    [SerializeField] private float announcerDelay = 0.3f; // Configurable en Inspector
 
     private float _lastInputTime;
     private int _frameLastStepSuccessful = -1;
@@ -174,6 +182,7 @@ public class CheatCodeDetector : MonoBehaviour
     {
         Debug.Log($"[CheatSystem] 🎉 DESBLOQUEADO: {cheat.cheatName}");
 
+        // 1. Lógica Visual y de Datos (Existente)
         if (sessionData != null && cheat.characterToUnlock != null && playerInput.playerIndex < sessionData.players.Count)
         {
             Player p = sessionData.players[playerInput.playerIndex];
@@ -182,6 +191,34 @@ public class CheatCodeDetector : MonoBehaviour
                 p.lockedChars.Remove(cheat.characterToUnlock);
             }
             if (characterSelector != null) characterSelector.JumpToCharacter(cheat.characterToUnlock);
+        }
+
+        // 2. NUEVA Lógica de Audio Secuencial
+        StartCoroutine(PlayUnlockSequence());
+    }
+
+    private IEnumerator PlayUnlockSequence()
+    {
+        // Verificamos que el driver exista para evitar errores
+        if (CycloneAudioDriver.Instance == null) yield break;
+
+        // PASO 1: Suena la campana inmediatamente (T=0)
+        if (unlockBellSfx != null)
+        {
+            CycloneAudioDriver.Instance.PlayOneShot(unlockBellSfx); // [Cite: CycloneAudioDriver.cs]
+        }
+
+        // PASO 2: Esperamos el tiempo configurado (el "respiro" dramático)
+        // Esto permite que el agudo de la campana brille antes de que entre la voz
+        if (announcerDelay > 0)
+        {
+            yield return new WaitForSeconds(announcerDelay);
+        }
+
+        // PASO 3: Entra el Anunciador
+        if (announcerSfx != null)
+        {
+            CycloneAudioDriver.Instance.PlayOneShot(announcerSfx); // [Cite: CycloneAudioDriver.cs]
         }
     }
 }

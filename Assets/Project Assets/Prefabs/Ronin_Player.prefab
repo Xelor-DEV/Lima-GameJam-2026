@@ -47,12 +47,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 392df4f44c3fa0f4a8870fdec0c72cfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToInputNextStep: 3
+  timeToInputNextStep: 1.5
   pointsPerStep: 10
   penaltyOnFail: 50
   errorShowDuration: 1.5
-  minBlinkSpeed: 0.15
-  maxBlinkSpeed: 0.5
+  minBlinkSpeed: 0.1
+  maxBlinkSpeed: 0.4
+  successClip: {fileID: 11400000, guid: ccf373e714651da45850ff9ab355dd4b, type: 2}
+  errorClip: {fileID: 11400000, guid: e5e43e9ce741ef74c8d210fbf0214b64, type: 2}
 --- !u!114 &4350813783795779890
 MonoBehaviour:
   m_ObjectHideFlags: 0

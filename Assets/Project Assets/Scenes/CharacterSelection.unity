@@ -157,6 +157,7 @@ MonoBehaviour:
   audioLibraries:
   - {fileID: 11400000, guid: 6e265038fb405e848b5f155c47697616, type: 2}
   - {fileID: 11400000, guid: 4cf8c934544cb1a4db8453455c63aad2, type: 2}
+  - {fileID: 11400000, guid: 2a58a5dc0e78b244fbedb8657695127a, type: 2}
   defaultSnapshot: {fileID: 11400000, guid: 87d277bf9bd8dca4b9e1b391a9d60303, type: 2}
 --- !u!4 &136276172
 Transform:
@@ -549,6 +550,9 @@ MonoBehaviour:
   countdownSeconds: 5
   minPlayersRequired: 2
   sceneToLoad: Cut
+  playerJoinClip: {fileID: 11400000, guid: 793565f4f39016648a30316a67aa7631, type: 2}
+  countdownTickClip: {fileID: 11400000, guid: b954bab67ca62d24cba4e3d27bec932a, type: 2}
+  countdownGoClip: {fileID: 11400000, guid: b954bab67ca62d24cba4e3d27bec932a, type: 2}
   OnAllPlayersReady:
     m_PersistentCalls:
       m_Calls: []

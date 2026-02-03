@@ -24,27 +24,200 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 756499857408
-    m_Localized: K.O.! Not even Akira could have beaten me at this!
+    m_Localized: You won't beat me in this Bonus Stage!
     m_Metadata:
       m_Items: []
   - m_Id: 858907983872
-    m_Localized: 99 hits combo! Perfect!
+    m_Localized: Feel the power of 'Beastly Fingers' Yaguchi!
     m_Metadata:
       m_Items: []
   - m_Id: 1047555194880
-    m_Localized: Damn it! This controller has lag!
+    m_Localized: I'm gonna land a 20-hit combo on this line!
     m_Metadata:
       m_Items: []
   - m_Id: 1566977802240
-    m_Localized: Test
+    m_Localized: Someday I'll be the best in the world at Street Fighter II, you'll
+      see!
     m_Metadata:
       m_Items: []
-  - m_Id: 79437280821248
-    m_Localized: My designs always come out on top
+  - m_Id: 1040749850771456
+    m_Localized: This joystick isn't responding right, damn it!
     m_Metadata:
       m_Items: []
-  - m_Id: 79750196871168
-    m_Localized: You're going down, sister. Just watch
+  - m_Id: 1041487905669120
+    m_Localized: "Gwah! I feel like Jiiya\u2019s limo is about to run me over again!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1043387489173504
+    m_Localized: Mom, not now! Can't you see I'm in the middle of a winning streak!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1043616032604160
+    m_Localized: "\xA1Perfect! \xA1Como en mis mejores d\xEDas en el Game Center!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1045443608297472
+    m_Localized: Phew! That last move was pro-level!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1045525774712832
+    m_Localized: I've still got one credit left and I'm going for more!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1045615197274112
+    m_Localized: Behold the precision of my Beastly Fingers!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1045692271804416
+    m_Localized: Didn't even break a sweat! Easier than CPU Zangief.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1045847532355584
+    m_Localized: If Oono was watching, she'd probably punch me for showing off!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1045942524952576
+    m_Localized: Damn it! That button got stuck!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1046556977905664
+    m_Localized: I bet player two has an advantage on this game!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1046559519653888
+    m_Localized: Give me another coin, this match doesn't count!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1046562174648320
+    m_Localized: I got countered right when I was about to win!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1046830840791040
+    m_Localized: This isn't fair! Akira must have cheated!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1046961040375808
+    m_Localized: "No way! This mix-up has me as confused as Hidaka\u2019s Phobos
+      back in that Darkstalkers match!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1047358219993088
+    m_Localized: T-Ten in a row...! It's the same humiliation as when Hidaka swept
+      our entire Shibuya team all by herself!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1047361307000832
+    m_Localized: My fingers aren't responding! I feel as finished as when Hidaka
+      gave me that beating after I quit the arcades!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1048844882657280
+    m_Localized: 'Like Guile says: ''Go home and be a family man''!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1049855940608000
+    m_Localized: 'Look at my initials on the screen: H-A-R!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1050041941213184
+    m_Localized: Piece of cake! Keep practicing, scrubs.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1050082433024000
+    m_Localized: You Win! My name will be at the top of the ranking!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1050134912155648
+    m_Localized: I've mastered this game with a single coin!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1050193871486976
+    m_Localized: "There\u2019s no rival for the pride of Mizonokuchi!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1063988308197376
+    m_Localized: The spirits say I'm gonna win today!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1063991919493120
+    m_Localized: Gathering the four seals was easier than dealing with you
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1063992586387456
+    m_Localized: You think Ronin is a superhero? Please, he's a serious cosmic serpent
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1063993664323584
+    m_Localized: The Piri Piri ritual gave me patience... but I'm running out of
+      it
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1064296627290112
+    m_Localized: My design is gonna look way better than your scribbles
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1064316827058176
+    m_Localized: Focus, Niwe! It's for the Ani Xeati, not for playing around!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1065295874080768
+    m_Localized: Ha! Too slow for me
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1065472735297536
+    m_Localized: Take that! That's how you make a mask
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1065585348165632
+    m_Localized: Not even your imagination can catch me
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1065709973520384
+    m_Localized: See? Experience wins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1065804823511040
+    m_Localized: Point for the spiritual expert!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1065903305768960
+    m_Localized: Hey! You pushed me!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1066291199197184
+    m_Localized: The spirits distracted me...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1066401123516416
+    m_Localized: That's not fair, I want a rematch!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1066501522571264
+    m_Localized: Ugh, my hand slipped
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1066613988638720
+    m_Localized: Beginner's luck!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1066761598779392
+    m_Localized: I am the queen of the Ani Xeati! Deal with it!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1066889780903936
+    m_Localized: Go back to the spirit world, little brother. I won!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1066955816026112
+    m_Localized: Who fulfilled their purpose today? Me!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1067077039800320
+    m_Localized: Yesss! My mask is the best of all.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1067252877606912
+    m_Localized: Nice try, Niwe. But I am the champion
     m_Metadata:
       m_Items: []
   references:

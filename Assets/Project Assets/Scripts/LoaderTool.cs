@@ -1,11 +1,10 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class LoaderTool : MonoBehaviour
 {
     public void LoadScene(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
+        SceneLoader.Instance.LoadLevel(sceneName);
     }
 
     public void QuitGame() 

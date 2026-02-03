@@ -24,7 +24,7 @@ public class BrushController : MonoBehaviour
     [Tooltip("Tono máximo")]
     [SerializeField] private float maxPitch = 1.1f;
 
-    [Tooltip("Controla qué tan rápido cambia el valor en el buffer pre-calculado. Valores bajos (0.05) = ondas suaves. Valores altos (0.5) = cambios bruscos.")]
+    [Tooltip("Controla qué tan rápido cambia el valor en el buffer pre-calculado.")]
     [SerializeField] private float noiseStep = 0.1f;
 
     // Buffer de tamaño fijo para evitar cálculos en Update
@@ -50,30 +50,28 @@ public class BrushController : MonoBehaviour
     private bool patternFinished = false;
 
     // Feedback
-    private bool _isSfxPlaying = false;
     private float _animTimer;
     private bool _toggleSpriteState;
     private CycloneAudioDriver _cachedDriver;
 
+    // ID del audio trackeado
+    private int _currentAudioId = -1;
+
+    // --- NUEVO: Bandera de seguridad "Freeze" ---
+    private bool _isFrozen = false;
+
     private void Start()
     {
         _cachedDriver = CycloneAudioDriver.Instance;
-
-        // --- 1. PRE-CALCULAR BUFFER (Solo una vez) ---
         GeneratePitchBuffer();
     }
 
     private void GeneratePitchBuffer()
     {
-        // Usamos un offset aleatorio para que el patrón base no sea siempre idéntico al iniciar el juego
         float randomSeed = Random.Range(0f, 100f);
-
         for (int i = 0; i < _pitchBuffer.Length; i++)
         {
-            // Calculamos el ruido una sola vez aquí
             float noiseVal = Mathf.PerlinNoise((i * noiseStep) + randomSeed, 0f);
-
-            // Mapeamos y guardamos el resultado final
             _pitchBuffer[i] = Mathf.Lerp(minPitch, maxPitch, noiseVal);
         }
     }
@@ -98,12 +96,12 @@ public class BrushController : MonoBehaviour
 
     public void OnAction(InputAction.CallbackContext context)
     {
+        // 1. SEGURIDAD: Si está congelado, ignorar input
+        if (!this.enabled || _isFrozen) return;
+
         if (context.performed)
         {
             isPaintingActive = true;
-            // --- 2. OFFSET ALEATORIO ---
-            // Al hacer clic, saltamos a una posición aleatoria del buffer.
-            // Esto garantiza que cada trazo suene distinto aunque los datos sean los mismos.
             _bufferIndex = Random.Range(0, _pitchBuffer.Length);
         }
         else if (context.canceled)
@@ -114,6 +112,16 @@ public class BrushController : MonoBehaviour
 
     void Update()
     {
+        // 2. SEGURIDAD: Si está congelado, salir inmediatamente
+        if (_isFrozen) return;
+
+        // Si el manager dice que terminó, congelar y salir
+        if (manager != null && manager.IsGameFinished)
+        {
+            FreezeController();
+            return;
+        }
+
         if (patternFinished || currentPattern == null || brushTip == null)
         {
             HandleFeedback(false);
@@ -148,37 +156,39 @@ public class BrushController : MonoBehaviour
 
     void HandleFeedback(bool isActionActive)
     {
+        // 3. SEGURIDAD: Si está congelado, asegurar silencio y salir
+        if (_isFrozen)
+        {
+            StopMyAudio();
+            return;
+        }
+
         CycloneAudioDriver driver = _cachedDriver != null ? _cachedDriver : CycloneAudioDriver.Instance;
         if (driver == null) return;
 
-        // 1. Audio Logic
+        // --- AUDIO LOGIC ---
         if (paintLoopSfx != null)
         {
             if (isActionActive)
             {
-                if (!_isSfxPlaying)
+                if (_currentAudioId == -1)
                 {
-                    driver.Play(paintLoopSfx);
-                    _isSfxPlaying = true;
+                    // ANTI-DOBLE SONIDO: Parar versión compartida antes de iniciar la nuestra
+                    driver.Stop(paintLoopSfx);
+                    _currentAudioId = driver.PlayTracked(paintLoopSfx);
                 }
 
-                // --- 3. LECTURA OPTIMIZADA ---
-                // Leemos del buffer pre-calculado (Coste insignificante)
                 float targetPitch = _pitchBuffer[_bufferIndex];
-                driver.SetPitch(paintLoopSfx, targetPitch);
-
-                // Avanzamos el índice y damos la vuelta (Loop) si llegamos a 500
+                driver.SetPitchTracked(_currentAudioId, targetPitch);
                 _bufferIndex = (_bufferIndex + 1) % _pitchBuffer.Length;
             }
-            else if (!isActionActive && _isSfxPlaying)
+            else
             {
-                driver.Stop(paintLoopSfx);
-                driver.SetPitch(paintLoopSfx, 1.0f);
-                _isSfxPlaying = false;
+                StopMyAudio();
             }
         }
 
-        // 2. Visuals
+        // --- VISUAL LOGIC ---
         if (visualRenderer != null && idleSprite != null && paintSprite != null)
         {
             if (isActionActive)
@@ -200,12 +210,25 @@ public class BrushController : MonoBehaviour
         }
     }
 
+    // Helper unificado para detener el audio trackeado
+    private void StopMyAudio()
+    {
+        CycloneAudioDriver driver = _cachedDriver != null ? _cachedDriver : CycloneAudioDriver.Instance;
+        if (driver != null && _currentAudioId != -1)
+        {
+            driver.StopTracked(_currentAudioId);
+            _currentAudioId = -1;
+        }
+    }
+
     void CompletePattern()
     {
         patternFinished = true;
         isPaintingActive = false;
 
-        HandleFeedback(false);
+        StopMyAudio();
+
+        if (visualRenderer != null) visualRenderer.sprite = idleSprite;
 
         if (_cachedDriver != null && completeSfx != null)
         {
@@ -220,13 +243,34 @@ public class BrushController : MonoBehaviour
         if (linkedUI != null) linkedUI.AddScore(amount);
     }
 
+    // --- FREEZE CONTROLLER BLINDADO ---
+    public void FreezeController()
+    {
+        // 1. Activar bandera INMEDIATAMENTE
+        _isFrozen = true;
+
+        // 2. Matar el audio actual trackeado
+        StopMyAudio();
+
+        // 3. Matar el audio compartido por si acaso (Seguridad Anti-Doble)
+        CycloneAudioDriver driver = _cachedDriver != null ? _cachedDriver : CycloneAudioDriver.Instance;
+        if (driver != null && paintLoopSfx != null)
+        {
+            driver.Stop(paintLoopSfx);
+        }
+
+        // 4. Limpieza de estado visual
+        isPaintingActive = false;
+        if (visualRenderer != null) visualRenderer.sprite = idleSprite;
+
+        // 5. Bloqueo UI y Apagado
+        if (linkedUI != null) linkedUI.LockScoring();
+        this.enabled = false;
+    }
+
     private void OnDisable()
     {
-        if (_cachedDriver != null && _isSfxPlaying)
-        {
-            _cachedDriver.Stop(paintLoopSfx);
-            _cachedDriver.SetPitch(paintLoopSfx, 1.0f);
-            _isSfxPlaying = false;
-        }
+        // Red de seguridad final
+        StopMyAudio();
     }
 }

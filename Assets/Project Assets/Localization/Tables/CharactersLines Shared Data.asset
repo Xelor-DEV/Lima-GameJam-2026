@@ -16,31 +16,199 @@ MonoBehaviour:
   m_TableCollectionNameGuidString: 75dd5195453982244adc04e6acfa7679
   m_Entries:
   - m_Id: 168231944192
-    m_Key: HY_00001
+    m_Key: CHAR_HARUO_SELECT
     m_Metadata:
       m_Items: []
   - m_Id: 756499857408
-    m_Key: HY_00002
+    m_Key: CHAR_HARUO_RANDOM_01
     m_Metadata:
       m_Items: []
   - m_Id: 858907983872
-    m_Key: HY_00003
+    m_Key: CHAR_HARUO_RANDOM_02
     m_Metadata:
       m_Items: []
   - m_Id: 1047555194880
-    m_Key: HY_00004
+    m_Key: CHAR_HARUO_RANDOM_03
     m_Metadata:
       m_Items: []
   - m_Id: 1566977802240
-    m_Key: HY_00005
+    m_Key: CHAR_HARUO_RANDOM_04
     m_Metadata:
       m_Items: []
-  - m_Id: 79437280821248
-    m_Key: R_00001
+  - m_Id: 1040749850771456
+    m_Key: CHAR_HARUO_RANDOM_05
     m_Metadata:
       m_Items: []
-  - m_Id: 79750196871168
-    m_Key: N_00001
+  - m_Id: 1041487905669120
+    m_Key: CHAR_HARUO_RANDOM_06
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1043387489173504
+    m_Key: CHAR_HARUO_RANDOM_07
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1043616032604160
+    m_Key: CHAR_HARUO_SUCCESS_01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1045443608297472
+    m_Key: CHAR_HARUO_SUCCESS_02
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1045525774712832
+    m_Key: CHAR_HARUO_SUCCESS_03
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1045615197274112
+    m_Key: CHAR_HARUO_SUCCESS_04
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1045692271804416
+    m_Key: CHAR_HARUO_SUCCESS_05
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1045847532355584
+    m_Key: CHAR_HARUO_SUCCESS_06
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1045942524952576
+    m_Key: CHAR_HARUO_FAIL_01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1046556977905664
+    m_Key: CHAR_HARUO_FAIL_02
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1046559519653888
+    m_Key: CHAR_HARUO_FAIL_03
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1046562174648320
+    m_Key: CHAR_HARUO_FAIL_04
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1046830840791040
+    m_Key: CHAR_HARUO_FAIL_05
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1046961040375808
+    m_Key: CHAR_HARUO_FAIL_06
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1047358219993088
+    m_Key: CHAR_HARUO_FAIL_07
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1047361307000832
+    m_Key: CHAR_HARUO_FAIL_08
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1048844882657280
+    m_Key: CHAR_HARUO_WIN_01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1049855940608000
+    m_Key: CHAR_HARUO_WIN_02
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1050041941213184
+    m_Key: CHAR_HARUO_WIN_03
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1050082433024000
+    m_Key: CHAR_HARUO_WIN_04
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1050134912155648
+    m_Key: CHAR_HARUO_WIN_05
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1050193871486976
+    m_Key: CHAR_HARUO_WIN_06
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1063988308197376
+    m_Key: CHAR_RESHIN_SELECT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1063991919493120
+    m_Key: CHAR_RESHIN_RANDOM_01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1063992586387456
+    m_Key: CHAR_RESHIN_RANDOM_02
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1063993664323584
+    m_Key: CHAR_RESHIN_RANDOM_03
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1064296627290112
+    m_Key: CHAR_RESHIN_RANDOM_04
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1064316827058176
+    m_Key: CHAR_RESHIN_RANDOM_05
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1065295874080768
+    m_Key: CHAR_RESHIN_SUCCESS_01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1065472735297536
+    m_Key: CHAR_RESHIN_SUCCESS_02
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1065585348165632
+    m_Key: CHAR_RESHIN_SUCCESS_03
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1065709973520384
+    m_Key: CHAR_RESHIN_SUCCESS_04
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1065804823511040
+    m_Key: CHAR_RESHIN_SUCCESS_05
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1065903305768960
+    m_Key: CHAR_RESHIN_FAIL_01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1066291199197184
+    m_Key: CHAR_RESHIN_FAIL_02
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1066401123516416
+    m_Key: CHAR_RESHIN_FAIL_03
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1066501522571264
+    m_Key: CHAR_RESHIN_FAIL_04
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1066613988638720
+    m_Key: CHAR_RESHIN_FAIL_05
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1066761598779392
+    m_Key: CHAR_RESHIN_WIN_01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1066889780903936
+    m_Key: CHAR_RESHIN_WIN_02
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1066955816026112
+    m_Key: CHAR_RESHIN_WIN_03
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1067077039800320
+    m_Key: CHAR_RESHIN_WIN_04
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1067252877606912
+    m_Key: CHAR_RESHIN_WIN_05
     m_Metadata:
       m_Items: []
   m_Metadata:

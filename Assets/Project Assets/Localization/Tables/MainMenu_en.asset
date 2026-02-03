@@ -120,7 +120,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 654846337429504
-    m_Localized: Artist
+    m_Localized: Art
     m_Metadata:
       m_Items: []
   - m_Id: 654920568221696
@@ -129,6 +129,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 655022699524096
     m_Localized: Music
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1055353687490560
+    m_Localized: Loading
     m_Metadata:
       m_Items: []
   references:

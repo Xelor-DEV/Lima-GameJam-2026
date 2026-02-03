@@ -18,7 +18,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:75dd5195453982244adc04e6acfa7679
     m_TableEntryReference:
-      m_KeyId: 79437280821248
+      m_KeyId: 1063988308197376
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -26,7 +26,7 @@ MonoBehaviour:
   selectorImage: {fileID: -4957685090608887844, guid: 522e537a97cdead488abbd6c16ff7143, type: 3}
   uiIcon: {fileID: -5289136638678962570, guid: 3245460008fc3384ab5ab75a09a65347, type: 3}
   victoryPrefab: {fileID: 8943850955193939668, guid: c117f12f3ed54884bbf9d4fd9c6121ac, type: 3}
-  dialogueData: {fileID: 0}
+  dialogueData: {fileID: 11400000, guid: 7240c55d0ca7b354d8a59912abf8c06c, type: 2}
   voiceBlip: {fileID: 0}
   references:
     version: 2

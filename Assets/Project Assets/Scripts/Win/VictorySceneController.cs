@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.Localization;
-using System.Linq; // Necesario para sumar listas fácilmente
+using System.Linq;
 
 public class VictorySceneController : MonoBehaviour
 {
@@ -8,9 +8,10 @@ public class VictorySceneController : MonoBehaviour
     public PlayersSessionData sessionData;
 
     [Header("Scene References")]
-    [Tooltip("Punto en el mundo donde aparecerá el personaje ganador")]
     public Transform characterSpawnPoint;
-    public VictoryScreenUI victoryUI;
+
+    // Referencia al PlayerUIInfo que usaremos como pantalla de victoria
+    public PlayerUIInfo winnerUI;
 
     [Header("Localization")]
     [Tooltip("Debe contener un Smart String con {0} para el número de jugador")]
@@ -18,6 +19,9 @@ public class VictorySceneController : MonoBehaviour
 
     private void Start()
     {
+        // Ocultamos la UI al inicio por si acaso
+        if (winnerUI != null) winnerUI.gameObject.SetActive(false);
+
         CalculateAndShowWinner();
     }
 
@@ -32,22 +36,15 @@ public class VictorySceneController : MonoBehaviour
         Player winner = null;
         float highestTotalScore = float.MinValue;
 
-        // 1. Calcular puntajes
+        // Calcular puntajes para encontrar al ganador
         foreach (var player in sessionData.players)
         {
             float currentTotal = 0f;
-
-            // Sumamos todos los valores (si son negativos se restan automáticamente)
             if (player.scores != null)
             {
                 currentTotal = player.scores.Sum(score => score.value);
             }
 
-            Debug.Log($"Jugador {player.index + 1} Total: {currentTotal}");
-
-            // Determinamos si es el nuevo líder
-            // (Nota: En caso de empate, esto se queda con el primero que encontró, 
-            // puedes agregar lógica extra aquí si quieres manejar empates)
             if (currentTotal > highestTotalScore)
             {
                 highestTotalScore = currentTotal;
@@ -58,13 +55,23 @@ public class VictorySceneController : MonoBehaviour
         if (winner != null)
         {
             SpawnWinnerCharacter(winner);
-            UpdateVictoryUI(winner);
+
+            if (winnerUI != null)
+            {
+                winnerUI.gameObject.SetActive(true);
+
+                // 1. Preparamos el mensaje localizado (Ej: "Jugador 1 ha ganado")
+                winnerAnnouncementString.Arguments = new object[] { winner.index + 1 };
+                string victoryMessage = winnerAnnouncementString.GetLocalizedString();
+
+                // 2. Llamamos al método modificado pasando el mensaje
+                winnerUI.SetupVictoryUI(winner, victoryMessage);
+            }
         }
     }
 
     private void SpawnWinnerCharacter(Player winner)
     {
-        // Verificamos que el personaje tenga un prefab asignado
         if (winner.selectedCharacter != null && winner.selectedCharacter.victoryPrefab != null)
         {
             Instantiate(
@@ -74,20 +81,5 @@ public class VictorySceneController : MonoBehaviour
                 characterSpawnPoint
             );
         }
-        else
-        {
-            Debug.LogWarning($"El personaje {winner.selectedCharacter?.characterName} no tiene un Victory Prefab asignado.");
-        }
-    }
-
-    private void UpdateVictoryUI(Player winner)
-    {
-        // Obtenemos el string localizado. 
-        // Asumimos que el string tiene formato "Player {0} has won"
-        // Le pasamos (index + 1) para que muestre "Jugador 1" en vez de "Jugador 0"
-        winnerAnnouncementString.Arguments = new object[] { winner.index + 1 };
-        string localizedMessage = winnerAnnouncementString.GetLocalizedString();
-
-        victoryUI.SetupUI(winner, localizedMessage);
     }
 }

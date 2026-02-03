@@ -62,7 +62,7 @@ public class CinematicSimple : MonoBehaviour
         if (botonSkip != null) botonSkip.gameObject.SetActive(false);
 
         yield return StartCoroutine(AparecerAlpha(panelNegro));
-        SceneManager.LoadScene(nombreEscenaMenu);
+        CargarSiguienteEscena();
     }
 
     IEnumerator AparecerAlpha(CanvasGroup cg)
@@ -106,6 +106,20 @@ public class CinematicSimple : MonoBehaviour
             panelNegro.alpha = 1;
         }
 
-        SceneManager.LoadScene(nombreEscenaMenu);
+        CargarSiguienteEscena();
+    }
+
+    void CargarSiguienteEscena()
+    {
+        if (SceneLoader.Instance != null)
+        {
+            SceneLoader.Instance.LoadLevel(nombreEscenaMenu);
+        }
+        else
+        {
+            Debug.LogError("¡ERROR! No se encontró SceneLoader.Instance en la escena. Asegúrate de iniciar desde la escena de carga o tener el prefab del Loader.");
+            // Fallback de emergencia por si estás probando solo esta escena:
+            // UnityEngine.SceneManagement.SceneManager.LoadScene(nombreEscenaMenu);
+        }
     }
 }

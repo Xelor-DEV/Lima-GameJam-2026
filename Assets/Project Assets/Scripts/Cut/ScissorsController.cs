@@ -1,25 +1,30 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using NexusChaser.CycloneAMS; // Necesario para audio
+using NexusChaser.CycloneAMS;
 
 public class ScissorsController : MonoBehaviour
 {
     [Header("Referencias")]
-    [Tooltip("El punto exacto de la punta de la tijera")]
     public Transform cuttingTip;
 
-    // --- NUEVO: Referencias Visuales y de Audio ---
     [Header("Visuals & Audio")]
-    [SerializeField] private SpriteRenderer visualRenderer; // El SpriteRenderer del objeto
-    [SerializeField] private Sprite idleSprite;             // Sprite tijera abierta/quieta
-    [SerializeField] private Sprite cutSprite;              // Sprite tijera cerrada/cortando
-    [SerializeField] private float animationSpeed = 0.15f;  // Velocidad de cambio de sprite
-
+    [SerializeField] private SpriteRenderer visualRenderer;
+    [SerializeField] private Sprite idleSprite;
+    [SerializeField] private Sprite cutSprite;
+    [SerializeField] private float animationSpeed = 0.15f;
     [SerializeField] private CycloneClip cutLoopSfx;
-    [SerializeField] private CycloneClip completeSfx; // El clip loopeado en Cyclone
-    // ----------------------------------------------
+    [SerializeField] private CycloneClip completeSfx;
 
-    // Referencias inyectadas
+    // --- NUEVO: Variación de Pitch (Anti-Efecto Doble) ---
+    [Header("Audio Variation")]
+    [SerializeField] private float minPitch = 0.9f;
+    [SerializeField] private float maxPitch = 1.1f;
+    [SerializeField] private float noiseStep = 0.1f;
+
+    private readonly float[] _pitchBuffer = new float[500];
+    private int _bufferIndex = 0;
+    // -----------------------------------------------------
+
     private CuttingPattern currentTargetPattern;
     private PlayerUIInfo linkedUI;
     private PatternMinigameManager manager;
@@ -32,23 +37,35 @@ public class ScissorsController : MonoBehaviour
 
     [HideInInspector] public Color lineColor;
 
-    // Estado
     private bool isCuttingInputActive = false;
     private bool patternFinished = false;
 
-    // Variables internas para feedback
-    private bool _isSfxPlaying = false;
+    // Feedback vars
     private float _animTimer;
     private bool _toggleSpriteState;
     private CycloneAudioDriver _cachedDriver;
 
+    // ID del audio actual
+    private int _currentAudioId = -1;
+    // Bandera de seguridad para bloquear la creación de audios en el último frame
+    private bool _isFrozen = false;
+
     private void Start()
     {
-        // Guardamos la referencia AQUÍ, cuando es seguro que existe.
         _cachedDriver = CycloneAudioDriver.Instance;
+        GeneratePitchBuffer();
     }
 
-    // --- SETUP ---
+    private void GeneratePitchBuffer()
+    {
+        float randomSeed = Random.Range(0f, 100f);
+        for (int i = 0; i < _pitchBuffer.Length; i++)
+        {
+            float noiseVal = Mathf.PerlinNoise((i * noiseStep) + randomSeed, 0f);
+            _pitchBuffer[i] = Mathf.Lerp(minPitch, maxPitch, noiseVal);
+        }
+    }
+
     public void Initialize(int pIndex, PlayerUIInfo ui, PatternMinigameManager mgr)
     {
         playerIndex = pIndex;
@@ -60,31 +77,42 @@ public class ScissorsController : MonoBehaviour
     {
         currentTargetPattern = pattern;
         patternFinished = false;
+        if (currentTargetPattern != null) currentTargetPattern.InitializeVisuals(lineColor);
+    }
 
-        if (currentTargetPattern != null)
+    public void OnCutAction(InputAction.CallbackContext context)
+    {
+        if (!this.enabled || _isFrozen) return;
+
+        if (context.performed)
         {
-            currentTargetPattern.InitializeVisuals(lineColor);
+            isCuttingInputActive = true;
+            _bufferIndex = Random.Range(0, _pitchBuffer.Length); // Variación inicial
+        }
+        else if (context.canceled)
+        {
+            isCuttingInputActive = false;
         }
     }
 
-    // --- INPUT SYSTEM CALLBACK ---
-    public void OnCutAction(InputAction.CallbackContext context)
-    {
-        if (context.performed) isCuttingInputActive = true;
-        else if (context.canceled) isCuttingInputActive = false;
-    }
-
-    // --- LOOP PRINCIPAL ---
     void Update()
     {
-        // Si terminamos, aseguramos que todo se detenga
+        // 1. SEGURIDAD MÁXIMA: Si está congelado, no ejecutar NADA.
+        if (_isFrozen) return;
+
+        // 2. Si el manager dice que terminó, congelar y salir.
+        if (manager != null && manager.IsGameFinished)
+        {
+            FreezeController();
+            return;
+        }
+
         if (patternFinished || currentTargetPattern == null || cuttingTip == null)
         {
             HandleFeedback(false);
             return;
         }
 
-        // Determinamos si realmente estamos "cortando" (Input activo + Zona Segura)
         bool isEffectivelyCutting = false;
 
         if (isCuttingInputActive)
@@ -94,22 +122,19 @@ public class ScissorsController : MonoBehaviour
             if (isSafe)
             {
                 isEffectivelyCutting = true;
-                ProcessCutMovement(); // Lógica original de corte
+                ProcessCutMovement();
             }
             else
             {
-                // Penalización (Input activo pero fuera de línea)
                 if (linkedUI != null) linkedUI.AddScore(-penaltyPerFrame);
             }
         }
 
-        // Actualizamos Audio y Sprite basado en si estamos cortando efectivamente
         HandleFeedback(isEffectivelyCutting);
     }
 
     void ProcessCutMovement()
     {
-        // La lógica de puntos ya está validada por el flag isSafe arriba
         if (currentTargetPattern.TryCutNode(cuttingTip.position))
         {
             if (linkedUI != null) linkedUI.AddScore(pointsPerNode);
@@ -121,31 +146,47 @@ public class ScissorsController : MonoBehaviour
         }
     }
 
-    // --- NUEVO: Lógica de Animación y Audio ---
     void HandleFeedback(bool isActionActive)
     {
-        // Usamos _cachedDriver si existe, o Instance si no lo tenemos (backup)
-        CycloneAudioDriver driver = _cachedDriver != null ? _cachedDriver : CycloneAudioDriver.Instance;
+        // 3. SEGURIDAD REDUNDANTE: Si nos congelaron hace un microsegundo, abortar audio.
+        if (_isFrozen)
+        {
+            StopMyAudio();
+            return;
+        }
 
-        // Si por alguna razón el driver es nulo (ej. error init), salimos
+        CycloneAudioDriver driver = _cachedDriver != null ? _cachedDriver : CycloneAudioDriver.Instance;
         if (driver == null) return;
 
-        // 1. Audio Logic
+        // --- LÓGICA DE AUDIO MEJORADA ---
         if (cutLoopSfx != null)
         {
-            if (isActionActive && !_isSfxPlaying)
+            if (isActionActive)
             {
-                driver.Play(cutLoopSfx);
-                _isSfxPlaying = true;
+                // Solo iniciar si no tenemos un ID válido
+                if (_currentAudioId == -1)
+                {
+                    // ANTI-DOBLE SONIDO: 
+                    // Paramos explícitamente cualquier versión "Compartida" que pudiera haber quedado sonando
+                    driver.Stop(cutLoopSfx);
+
+                    // Iniciamos nuestra versión Trackeada
+                    _currentAudioId = driver.PlayTracked(cutLoopSfx);
+                }
+
+                // APLICAR PITCH (Esto elimina el efecto robótico/doble)
+                float targetPitch = _pitchBuffer[_bufferIndex];
+                driver.SetPitchTracked(_currentAudioId, targetPitch);
+                _bufferIndex = (_bufferIndex + 1) % _pitchBuffer.Length;
             }
-            else if (!isActionActive && _isSfxPlaying)
+            else
             {
-                driver.Stop(cutLoopSfx);
-                _isSfxPlaying = false;
+                // Si soltamos el botón, apagar
+                StopMyAudio();
             }
         }
 
-        // ... (Visuals Logic igual) ...
+        // Visuals
         if (visualRenderer != null && idleSprite != null && cutSprite != null)
         {
             if (isActionActive)
@@ -167,15 +208,26 @@ public class ScissorsController : MonoBehaviour
         }
     }
 
+    // Helper privado para limpieza segura
+    private void StopMyAudio()
+    {
+        CycloneAudioDriver driver = _cachedDriver != null ? _cachedDriver : CycloneAudioDriver.Instance;
+        if (driver != null && _currentAudioId != -1)
+        {
+            driver.StopTracked(_currentAudioId);
+            _currentAudioId = -1;
+        }
+    }
+
     void CompletePattern()
     {
         patternFinished = true;
         isCuttingInputActive = false;
 
-        // Detenemos loop visual/audio
-        HandleFeedback(false);
+        StopMyAudio(); // Parar loop
 
-        // Sonido de éxito (usando caché)
+        if (visualRenderer != null) visualRenderer.sprite = idleSprite;
+
         if (_cachedDriver != null && completeSfx != null)
         {
             _cachedDriver.PlayOneShot(completeSfx);
@@ -189,15 +241,36 @@ public class ScissorsController : MonoBehaviour
         if (linkedUI != null) linkedUI.AddScore(amount);
     }
 
+    // --- FREEZE CONTROLLER BLINDADO ---
+    public void FreezeController()
+    {
+        // 1. Activar bandera INMEDIATAMENTE.
+        // Esto previene que HandleFeedback vuelva a crear un audio si Update corre una vez más.
+        _isFrozen = true;
+
+        // 2. Matar el audio actual trackeado
+        StopMyAudio();
+
+        // 3. Matar el audio compartido por si acaso (Seguridad Anti-Doble)
+        CycloneAudioDriver driver = _cachedDriver != null ? _cachedDriver : CycloneAudioDriver.Instance;
+        if (driver != null && cutLoopSfx != null)
+        {
+            driver.Stop(cutLoopSfx);
+        }
+
+        // 4. Limpieza de estado visual
+        isCuttingInputActive = false;
+        _toggleSpriteState = false;
+        if (visualRenderer != null) visualRenderer.sprite = idleSprite;
+
+        // 5. Bloqueo UI y Apagado
+        if (linkedUI != null) linkedUI.LockScoring();
+        this.enabled = false;
+    }
+
     private void OnDisable()
     {
-        // --- CORRECCIÓN CRÍTICA ---
-        // Verificamos la referencia en caché. Si Unity ya destruyó el Driver (por cambio de escena),
-        // _cachedDriver será "null" y NO entraremos al if, evitando resucitar el Singleton.
-        if (_cachedDriver != null && _isSfxPlaying)
-        {
-            _cachedDriver.Stop(cutLoopSfx);
-            _isSfxPlaying = false;
-        }
+        // Última red de seguridad: Si el objeto se destruye o desactiva por Unity
+        StopMyAudio();
     }
 }

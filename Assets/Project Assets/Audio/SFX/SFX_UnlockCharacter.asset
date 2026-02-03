@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ab87b88a32923441a7041039bbf3962, type: 3}
-  m_Name: GameSFXNoLoop
+  m_Script: {fileID: 11500000, guid: 7bc05168e29049d46ab6b888928bf9f2, type: 3}
+  m_Name: SFX_UnlockCharacter
   m_EditorClassIdentifier: 
-  channelType: 2
-  useDedicatedSource: 0
-  clips:
-  - {fileID: 11400000, guid: eaa3c090de55d7b40bb3efbf9cb4c573, type: 2}
+  clip: {fileID: 8300000, guid: f34dcd8d4ae34f54fb139ec061181c27, type: 3}
+  isLoopable: 0

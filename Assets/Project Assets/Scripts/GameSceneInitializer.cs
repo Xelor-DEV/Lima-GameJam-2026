@@ -65,12 +65,13 @@ public class GameSceneInitializer : MonoBehaviour
             if (playerData.selectedCharacter != null)
             {
                 playerUIElements[i].SetupUI(
-                    playerData.selectedCharacter.characterName,
-                    playerData.selectedCharacter.uiIcon,
-                    playerData.color,
-                    playerData.index + 1,
-                    currentScoreObj
-                );
+                        playerData.selectedCharacter.characterName,
+                        playerData.selectedCharacter.uiIcon,
+                        playerData.color,
+                        playerData.index + 1,
+                        currentScoreObj,
+                        playerData.selectedCharacter // <--- NUEVO: Pasamos la data completa
+                    );
             }
 
             // 2. Instanciar Player

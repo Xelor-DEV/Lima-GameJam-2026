@@ -32,6 +32,11 @@ namespace NexusChaser.CycloneAMS
         // 3. Dedicated Sources: Maps a specific Clip to its own exclusive AudioSource
         private Dictionary<CycloneClip, AudioSource> dedicatedClipSources = new Dictionary<CycloneClip, AudioSource>();
 
+        // --- NUEVO: Sistema de Instancias Rastreadas (Tracked Instances) ---
+        private Dictionary<int, AudioSource> trackedSources = new Dictionary<int, AudioSource>();
+        private int nextTrackedId = 0;
+        // -------------------------------------------------------------------
+
         protected override void Awake()
         {
             base.Awake();
@@ -289,11 +294,12 @@ namespace NexusChaser.CycloneAMS
 
         public void StopAll()
         {
-            // Stop shared
             foreach (var source in sharedChannelSources.Values) source.Stop();
-
-            // Stop dedicated
             foreach (var source in dedicatedClipSources.Values) source.Stop();
+
+            // Limpiar también las instanciadas
+            List<int> ids = new List<int>(trackedSources.Keys);
+            foreach (int id in ids) StopTracked(id);
         }
 
         public void ApplySnapshot(CycloneSnapshot snapshotData)
@@ -372,6 +378,85 @@ namespace NexusChaser.CycloneAMS
             catch (Exception ex)
             {
                 Debug.LogWarning($"[CycloneAMS] Error setting pitch for '{cycloneClip?.name}': {ex.Message}");
+            }
+        }
+
+
+
+        /// <summary>
+        /// Crea una NUEVA instancia dedicada para este clip y devuelve un ID.
+        /// Úsalo cuando varios objetos necesitan reproducir el mismo loop simultáneamente.
+        /// Debes llamar a StopTracked(id) para detenerlo.
+        /// </summary>
+        public int PlayTracked(CycloneClip cycloneClip)
+        {
+            if (cycloneClip == null) return -1;
+
+            // 1. Instanciar nueva fuente
+            GameObject newObj = Instantiate(audioSourcePrefab, transform);
+            newObj.name = $"TrackedSource_{cycloneClip.name}_{nextTrackedId}";
+            AudioSource source = newObj.GetComponent<AudioSource>();
+
+            // 2. Configurar Mixer Group
+            // Buscamos a qué canal pertenece este clip (ya sea dedicado o compartido)
+            VolumeParam targetParam = null;
+
+            // Intento A: ¿Está en el mapa compartido?
+            if (sharedClipMap.TryGetValue(cycloneClip, out ChannelType type))
+            {
+                targetParam = memory.GetParamByChannel(type);
+            }
+            // Intento B: ¿Es dedicado? (Buscamos la librería a fuerza bruta, un poco costoso pero seguro)
+            else
+            {
+                foreach (var lib in audioLibraries)
+                {
+                    if (lib.Clips.Contains(cycloneClip))
+                    {
+                        targetParam = memory.GetParamByChannel(lib.ChannelType);
+                        break;
+                    }
+                }
+            }
+
+            if (targetParam != null) source.outputAudioMixerGroup = targetParam.mixerGroup;
+
+            // 3. Configurar clip
+            source.clip = cycloneClip.Clip;
+            source.loop = cycloneClip.IsLoopable;
+            source.Play();
+
+            // 4. Registrar
+            int id = nextTrackedId++;
+            trackedSources.Add(id, source);
+
+            return id;
+        }
+
+        /// <summary>
+        /// Detiene y destruye una instancia de audio creada con PlayTracked.
+        /// </summary>
+        public void StopTracked(int instanceId)
+        {
+            if (instanceId == -1) return;
+
+            if (trackedSources.TryGetValue(instanceId, out AudioSource source))
+            {
+                if (source != null)
+                {
+                    source.Stop(); // 1. Parar sonido YA.
+                    source.volume = 0f; // 2. Silenciar por si acaso.
+                    source.clip = null; // 3. Desvincular clip.
+                    Destroy(source.gameObject); // 4. Destruir GameObject.
+                }
+                trackedSources.Remove(instanceId);
+            }
+        }
+        public void SetPitchTracked(int instanceId, float pitch)
+        {
+            if (trackedSources.TryGetValue(instanceId, out AudioSource source))
+            {
+                if (source != null) source.pitch = pitch;
             }
         }
     }

@@ -1,24 +1,30 @@
-using System.Collections; // Necesario para Corrutinas
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using TMPro; // Necesario para TextMeshPro
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement; // Necesario para cambiar de escena
+using UnityEngine.SceneManagement;
 using DG.Tweening;
+using NexusChaser.CycloneAMS; // [Cita: PlayerConnectionManager.cs]
 
 public class PlayerConnectionManager : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private PlayersSessionData session;
     [SerializeField] private Transform container;
-    [SerializeField] private TextMeshProUGUI countdownText; // Referencia al texto
+    [SerializeField] private TextMeshProUGUI countdownText;
 
     [Header("Settings")]
-    [SerializeField] private int countdownSeconds = 3; // Tiempo configurable
+    [SerializeField] private int countdownSeconds = 3;
     [SerializeField] private int minPlayersRequired = 2;
-    [SerializeField] private string sceneToLoad; // Nombre de la escena a cargar
+    [SerializeField] private string sceneToLoad;
+
+    [Header("Audio Settings")]
+    [SerializeField] private CycloneClip playerJoinClip;      // Sonido al entrar jugador
+    [SerializeField] private CycloneClip countdownTickClip;   // Sonido: 3... 2... 1...
+    [SerializeField] private CycloneClip countdownGoClip;     // Sonido: GO!
 
     [Header("Events")]
     public UnityEvent OnAllPlayersReady;
@@ -51,10 +57,14 @@ public class PlayerConnectionManager : MonoBehaviour
         {
             input.transform.SetParent(container, false);
 
-            // --- NUEVA MEJORA: Feedback de entrada ---
+            // Feedback visual
             input.transform.localScale = Vector3.zero;
             input.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
         }
+
+        // --- Feedback de Audio (Player Join) ---
+        PlaySound(playerJoinClip);
+        // ---------------------------------------
 
         _playerReadyStates[input.playerIndex] = false;
 
@@ -106,13 +116,9 @@ public class PlayerConnectionManager : MonoBehaviour
             return;
         }
 
-        // 1. Verificamos que haya el mínimo de jugadores requeridos
         bool hasMinPlayers = _playerReadyStates.Count >= minPlayersRequired;
-
-        // 2. Verificamos si todos los que están conectados están listos
         bool allReady = _playerReadyStates.Count > 0 && _playerReadyStates.Values.All(state => state == true);
 
-        // Iniciamos cuenta atrás solo si se cumplen AMBAS condiciones
         if (hasMinPlayers && allReady)
         {
             if (_countdownCoroutine == null)
@@ -122,7 +128,6 @@ public class PlayerConnectionManager : MonoBehaviour
         }
         else
         {
-            // Si alguien cancela o un jugador se va bajando del mínimo, detenemos la cuenta
             StopCountdown();
         }
     }
@@ -155,26 +160,43 @@ public class PlayerConnectionManager : MonoBehaviour
             if (countdownText != null)
             {
                 countdownText.text = remainingTime.ToString();
-                // Opcional: Pequeña animación de escala con DOTween
+
+                // Animación visual
                 countdownText.transform.localScale = Vector3.one * 1.5f;
                 countdownText.transform.DOScale(1f, 0.5f);
             }
+
+            // --- Feedback de Audio (Tick) ---
+            PlaySound(countdownTickClip);
+            // --------------------------------
 
             yield return new WaitForSeconds(1f);
             remainingTime--;
         }
 
-        if (countdownText != null) countdownText.text = "0";
+        if (countdownText != null) countdownText.text = "0"; // O "GO!"
+
+        // --- Feedback de Audio (GO!) ---
+        PlaySound(countdownGoClip);
+        // -------------------------------
 
         Debug.Log("GO!");
         _gameHasStarted = true;
 
         OnAllPlayersReady?.Invoke();
 
-        // Cambiar de escena
         if (!string.IsNullOrEmpty(sceneToLoad))
         {
-            SceneManager.LoadScene(sceneToLoad);
+            SceneLoader.Instance.LoadLevel(sceneToLoad);
+        }
+    }
+
+    // Helper para simplificar la llamada y chequeo de nulos
+    private void PlaySound(CycloneClip clip)
+    {
+        if (CycloneAudioDriver.Instance != null && clip != null)
+        {
+            CycloneAudioDriver.Instance.PlayOneShot(clip); // [Cite: CycloneAudioDriver.cs]
         }
     }
 }

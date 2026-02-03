@@ -408,9 +408,9 @@ MonoBehaviour:
   animationSpeed: 0.2
   paintLoopSfx: {fileID: 11400000, guid: 7d16d7a666fc6be4a9833956e23dc58e, type: 2}
   completeSfx: {fileID: 11400000, guid: eaa3c090de55d7b40bb3efbf9cb4c573, type: 2}
-  minPitch: 0.85
-  maxPitch: 1.15
-  noiseStep: 0.1
+  minPitch: 0.5
+  maxPitch: 1.5
+  noiseStep: 0.3
   pointsPerPixel: 1
   penaltyPerFrame: 0.5
   winThreshold: 0.95
