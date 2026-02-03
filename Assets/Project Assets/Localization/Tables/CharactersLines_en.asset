@@ -220,6 +220,115 @@ MonoBehaviour:
     m_Localized: Nice try, Niwe. But I am the champion
     m_Metadata:
       m_Items: []
+  - m_Id: 1186971433549824
+    m_Localized: Here comes Niwe! Let's make this fun!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191656726970368
+    m_Localized: Spirits are okay, but I prefer action heroes!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191851103600640
+    m_Localized: I'm just a Shipibo kid passing through... Remember that!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1192031160877056
+    m_Localized: Do you think if Ronin gets mad he makes a giant explosion behind
+      him? That would be awesome!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1192701976887296
+    m_Localized: This mask is looking good, but it needs background explosions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1194175318441984
+    m_Localized: Ronin is huge... I bet he shoots lasers from his eyes!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1194316649709568
+    m_Localized: Your 'Kene Benai' sounds slow, Reshin. I prefer running!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1194413286473728
+    m_Localized: Fast, fast! The festival is gonna start without us!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1194635815272448
+    m_Localized: This isn't just any mask, it's a super energy helmet!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1194988279414784
+    m_Localized: Ha! I'm faster than a turbo jaguar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1195179300601856
+    m_Localized: Victory for Niwe! The jungle is mine!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1195323483996160
+    m_Localized: Take that! That's how you paint with style, sis
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1195530149937152
+    m_Localized: Henshin! I mean... I won!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1195643194818560
+    m_Localized: My reflexes are supreme! Beat that!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1195757917421568
+    m_Localized: Final Paint Attack... HAAA! Done!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1195915921047552
+    m_Localized: Hey! The brush moved on its own!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1196048159064064
+    m_Localized: I got distracted thinking about the snake...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1196260898357248
+    m_Localized: No fair! Your side of the table is easier!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1196452787765248
+    m_Localized: Ugh, I ran out of energy...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1196596639809536
+    m_Localized: Cheat! You used your Piri Piri powers!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1196704081100800
+    m_Localized: Ahhh! My transformation time ran out!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1197211323449344
+    m_Localized: Victory pose! The masked hero has saved the day
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1197360305127424
+    m_Localized: And the hero of the Ani Xeati is... MEEE!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1197464726519808
+    m_Localized: I beat you, I beat you! I'm the king of masks!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1197606024232960
+    m_Localized: Mission complete! Did you see that? I was super fast
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1197707459280896
+    m_Localized: Your spiritual journey was okay, but my adventure was better
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1197832285962240
+    m_Localized: Awesome! Now I really look like a legendary warrior!
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

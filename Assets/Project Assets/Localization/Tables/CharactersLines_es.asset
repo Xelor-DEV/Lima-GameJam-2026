@@ -224,6 +224,117 @@ MonoBehaviour:
     m_Localized: Buen intento, Niwe. Pero yo soy la campeona
     m_Metadata:
       m_Items: []
+  - m_Id: 1186971433549824
+    m_Localized: "\xA1Aqu\xED viene Niwe! \xA1Hagamos esto divertido!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191656726970368
+    m_Localized: "Los esp\xEDritus est\xE1n bien, \xA1pero yo prefiero a los h\xE9roes
+      de acci\xF3n!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191851103600640
+    m_Localized: "Solo soy un ni\xF1o Shipibo que pasaba por aqu\xED... \xA1Recu\xE9rdalo!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1192031160877056
+    m_Localized: "\xBFCrees que si Ronin se enoja hace una explosi\xF3n gigante detr\xE1s
+      de \xE9l? \xA1Ser\xEDa genial!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1192701976887296
+    m_Localized: "Esta m\xE1scara est\xE1 quedando bien, pero le faltan explosiones
+      de fondo"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1194175318441984
+    m_Localized: "Ronin es gigante... \xA1apuesto a que lanza rayos por los ojos!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1194316649709568
+    m_Localized: "Tu 'Kene Benai' suena lento, Reshin. \xA1Yo prefiero correr!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1194413286473728
+    m_Localized: "\xA1R\xE1pido, r\xE1pido! \xA1El festival va a empezar sin nosotros!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1194635815272448
+    m_Localized: "\xA1Esta no es cualquier m\xE1scara, es un casco de s\xFAper energ\xEDa!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1194988279414784
+    m_Localized: "\xA1Ja! Soy m\xE1s r\xE1pido que un jaguar con turbo"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1195179300601856
+    m_Localized: "\xA1Victoria para Niwe! \xA1La selva es m\xEDa!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1195323483996160
+    m_Localized: "\xA1Toma! As\xED se pinta con estilo, hermanita"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1195530149937152
+    m_Localized: "\xA1Henshin! \xA1Digo... Gan\xE9!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1195643194818560
+    m_Localized: "\xA1Mis reflejos son supremos! \xA1Sup\xE9ralo!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1195757917421568
+    m_Localized: "\xA1Ataque final de pintura... HAAA! \xA1Listo!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1195915921047552
+    m_Localized: "\xA1Ey! \xA1El pincel se movi\xF3 solo!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1196048159064064
+    m_Localized: Me distraje pensando en la serpiente...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1196260898357248
+    m_Localized: "\xA1No vale! \xA1Tu lado de la mesa es m\xE1s f\xE1cil!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1196452787765248
+    m_Localized: "Ugh, me qued\xE9 sin energ\xEDa..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1196596639809536
+    m_Localized: "\xA1Trampa! \xA1Usaste tus poderes de Piri Piri!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1196704081100800
+    m_Localized: "\xA1Ahhh! \xA1Se acab\xF3 el tiempo de mi transformaci\xF3n!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1197211323449344
+    m_Localized: "\xA1Pose de victoria! El h\xE9roe enmascarado ha salvado el d\xEDa"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1197360305127424
+    m_Localized: "\xA1Y el h\xE9roe del Ani Xeati es... YOOOO!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1197464726519808
+    m_Localized: "\xA1Te gan\xE9, te gan\xE9! \xA1Soy el rey de las m\xE1scaras!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1197606024232960
+    m_Localized: "\xA1Misi\xF3n cumplida! \xBFViste eso? Fui s\xFAper r\xE1pido"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1197707459280896
+    m_Localized: Tu viaje espiritual estuvo bien, pero mi aventura fue mejor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1197832285962240
+    m_Localized: "\xA1Genial! \xA1Ahora s\xED parezco un guerrero legendario!"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

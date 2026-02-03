@@ -26,8 +26,8 @@ public class PlayerDialogueController : MonoBehaviour
     private Coroutine chatterCoroutine;
     private bool isGameEnded = false;
 
-    // Shuffle Bag
-    private List<int> phraseIndices = new List<int>();
+    // NOTA: Se ha eliminado la lista local 'phraseIndices' porque ahora
+    // el estado se gestiona dentro de CharacterDialogueData.
 
     private void Awake()
     {
@@ -44,43 +44,31 @@ public class PlayerDialogueController : MonoBehaviour
     public void Initialize(CharacterDialogueData data, int playerSeed)
     {
         currentData = data;
-        RefillPhraseIndices();
+        // Ya no hace falta llamar a RefillPhraseIndices aquí
 
         float initialDelay = Random.Range(minRandomDelay, maxRandomDelay) + (playerSeed * 1.5f);
         chatterCoroutine = StartCoroutine(RandomChatterRoutine(initialDelay));
     }
 
     // --- NUEVA INICIALIZACIÓN (Escena de Victoria) ---
-    // No inicia la corrutina de RandomChatterRoutine
     public void InitializeVictory(CharacterDialogueData data)
     {
         currentData = data;
-        // Detenemos cualquier corrutina previa por seguridad
         StopAllCoroutines();
     }
 
-    // --- NUEVO MÉTODO PARA FRASE DE VICTORIA ---
+    // --- MÉTODO PARA FRASE DE VICTORIA ---
     public void PlayRandomVictoryPhrase()
     {
-        if (currentData == null || currentData.victoryPhrases == null || currentData.victoryPhrases.Length == 0)
-            return;
+        if (currentData == null) return;
 
-        // Elegir frase aleatoria del array de victoria
-        string victoryText = currentData.victoryPhrases[Random.Range(0, currentData.victoryPhrases.Length)].GetLocalizedString();
+        // Solicitamos la siguiente frase inteligente al Data
+        LocalizedString victoryLocalized = currentData.GetNextVictoryPhrase();
 
-        // Llamamos al Typewriter indicando que NO se cierre automáticamente (autoClose = false)
-        StartCoroutine(TypewriterEffect(victoryText, autoClose: false));
-    }
-
-    private void RefillPhraseIndices()
-    {
-        phraseIndices.Clear();
-        if (currentData != null && currentData.randomPhrases != null)
+        if (victoryLocalized != null && !victoryLocalized.IsEmpty)
         {
-            for (int i = 0; i < currentData.randomPhrases.Length; i++)
-            {
-                phraseIndices.Add(i);
-            }
+            string victoryText = victoryLocalized.GetLocalizedString();
+            StartCoroutine(TypewriterEffect(victoryText, autoClose: false));
         }
     }
 
@@ -90,18 +78,16 @@ public class PlayerDialogueController : MonoBehaviour
 
         while (!isGameEnded)
         {
-            if (currentData != null && currentData.randomPhrases.Length > 0)
+            if (currentData != null)
             {
-                if (phraseIndices.Count == 0) RefillPhraseIndices();
+                // Obtenemos la frase usando la lógica interna del ScriptableObject
+                LocalizedString textObj = currentData.GetNextRandomPhrase();
 
-                int randomIndex = Random.Range(0, phraseIndices.Count);
-                int selectedPhraseIdx = phraseIndices[randomIndex];
-                phraseIndices.RemoveAt(randomIndex);
-
-                string textToSay = currentData.randomPhrases[selectedPhraseIdx].GetLocalizedString();
-
-                // En modo normal, autoClose es true por defecto
-                yield return StartCoroutine(TypewriterEffect(textToSay, autoClose: true));
+                if (textObj != null && !textObj.IsEmpty)
+                {
+                    string textToSay = textObj.GetLocalizedString();
+                    yield return StartCoroutine(TypewriterEffect(textToSay, autoClose: true));
+                }
             }
 
             float nextDelay = Random.Range(minRandomDelay, maxRandomDelay);
@@ -116,10 +102,14 @@ public class PlayerDialogueController : MonoBehaviour
 
         if (currentData == null) return 0f;
 
-        LocalizedString[] pool = isWinner ? currentData.onMinigameSuccess : currentData.onMinigameFail;
-        if (pool == null || pool.Length == 0) return 0f;
+        // Pedimos la frase (Success o Fail) al Data, que recordará qué ya se dijo
+        LocalizedString finalPhraseObj = isWinner ?
+                                         currentData.GetNextSuccessPhrase() :
+                                         currentData.GetNextFailPhrase();
 
-        string finalPhrase = pool[Random.Range(0, pool.Length)].GetLocalizedString();
+        if (finalPhraseObj == null || finalPhraseObj.IsEmpty) return 0f;
+
+        string finalPhrase = finalPhraseObj.GetLocalizedString();
 
         StopAllCoroutines();
         if (uiInfo.dialogueContainer != null) uiInfo.dialogueContainer.transform.DOKill();
@@ -133,7 +123,6 @@ public class PlayerDialogueController : MonoBehaviour
         return popDuration + totalTypeDuration + readingDuration + popDuration;
     }
 
-    // --- CORRUTINA MODIFICADA: AÑADIDO PARÁMETRO autoClose ---
     IEnumerator TypewriterEffect(string text, bool autoClose)
     {
         if (uiInfo.dialogueContainer == null || uiInfo.dialogueText == null) yield break;
@@ -152,6 +141,9 @@ public class PlayerDialogueController : MonoBehaviour
             .WaitForCompletion();
 
         // ESCRITURA
+        // Reproducir sonido de blip si existe en el data
+        // (Nota: puedes añadir la lógica de sonido aquí si lo deseas, usando currentData.voiceBlip)
+
         float duration = text.Length * typingSpeed;
         yield return uiInfo.dialogueText
             .DOText(text, duration)

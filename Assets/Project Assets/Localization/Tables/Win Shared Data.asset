@@ -19,6 +19,10 @@ MonoBehaviour:
     m_Key: Win_Message
     m_Metadata:
       m_Items: []
+  - m_Id: 773636821073920
+    m_Key: Win_MainMenu
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

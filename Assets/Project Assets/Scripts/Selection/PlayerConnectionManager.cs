@@ -38,11 +38,30 @@ public class PlayerConnectionManager : MonoBehaviour
         if (session != null)
         {
             session.ResetSession();
+            ResetAllCharacterDialogues();
         }
 
         if (countdownText != null)
         {
             countdownText.gameObject.SetActive(false);
+        }
+    }
+
+    private void ResetAllCharacterDialogues()
+    {
+        // Verificamos que tengamos acceso a la base de datos a través de la sesión
+        if (session.charDB != null && session.charDB.characterRoster != null)
+        {
+            foreach (var character in session.charDB.characterRoster)
+            {
+                // Verificamos que el personaje y su data de diálogo existan
+                if (character != null && character.dialogueData != null)
+                {
+                    // Reiniciamos la memoria (Shuffle Bag) de este personaje
+                    character.dialogueData.ResetHistory();
+                }
+            }
+            Debug.Log("[PlayerConnectionManager] All character dialogue histories have been reset.");
         }
     }
 
