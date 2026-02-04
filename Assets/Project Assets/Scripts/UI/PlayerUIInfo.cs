@@ -34,7 +34,7 @@ public class PlayerUIInfo : MonoBehaviour
         dialogueController = GetComponent<PlayerDialogueController>();
         if (dialogueController != null && charData != null)
         {
-            dialogueController.Initialize(charData.dialogueData, playerNumber);
+            dialogueController.Initialize(charData.dialogueData, playerNumber, charData);
         }
     }
 

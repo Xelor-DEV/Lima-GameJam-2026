@@ -27,7 +27,7 @@ MonoBehaviour:
   uiIcon: {fileID: 5499081169744537836, guid: 61a634939e90f0b48a9e16c4313285e1, type: 3}
   victoryPrefab: {fileID: 8829426509964437237, guid: e5b31324acfe228459e8a3de271bdd0b, type: 3}
   dialogueData: {fileID: 11400000, guid: 9bbae579bbe47714681df526ba6aa050, type: 2}
-  voiceBlip: {fileID: 0}
+  voiceBlip: {fileID: 11400000, guid: d61bb759bc1ae3c448ca56bfc83536a0, type: 2}
   references:
     version: 2
     RefIds: []

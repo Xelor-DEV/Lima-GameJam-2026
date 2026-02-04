@@ -235,9 +235,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minRandomDelay: 5
   maxRandomDelay: 15
-  typingSpeed: 0.05
+  typingSpeed: 0.04
   displayDurationPerWord: 0.5
   minDisplayTime: 2
+  commaPause: 0.15
+  sentencePause: 0.35
+  minPitch: 0.9
+  maxPitch: 1.1
+  excitementPitchOffset: 0.25
+  audioOverlap: 0.85
   popDuration: 0.4
   popInEase: 27
   popOutEase: 26
@@ -1257,9 +1263,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minRandomDelay: 5
   maxRandomDelay: 15
-  typingSpeed: 0.05
+  typingSpeed: 0.04
   displayDurationPerWord: 0.5
   minDisplayTime: 2
+  commaPause: 0.15
+  sentencePause: 0.35
+  minPitch: 0.9
+  maxPitch: 1.1
+  excitementPitchOffset: 0.25
+  audioOverlap: 0.85
   popDuration: 0.4
   popInEase: 27
   popOutEase: 26
@@ -2073,6 +2085,7 @@ MonoBehaviour:
   audioLibraries:
   - {fileID: 11400000, guid: 6e265038fb405e848b5f155c47697616, type: 2}
   - {fileID: 11400000, guid: 83811cf8e46a2a34a87fb02683fbf2ee, type: 2}
+  - {fileID: 11400000, guid: 7f0b8cdf0eb715c4ea751f6f94c706a6, type: 2}
   defaultSnapshot: {fileID: 11400000, guid: 87d277bf9bd8dca4b9e1b391a9d60303, type: 2}
 --- !u!4 &1252472057
 Transform:

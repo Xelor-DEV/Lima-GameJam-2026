@@ -7,7 +7,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using NexusChaser.CycloneAMS;
-// Asegúrate de incluir Localization si usas GetLocalizedString()
 using UnityEngine.Localization;
 
 public class CharacterSelector : MonoBehaviour
@@ -35,12 +34,23 @@ public class CharacterSelector : MonoBehaviour
     [SerializeField] private float animDuration = 0.3f;
     [SerializeField] private Ease animEase = Ease.OutQuad;
 
-    // --- NUEVO: Configuración "Bonita" copiada del PlayerDialogueController ---
     [Header("Dialogue Animation (Typewriter)")]
-    [SerializeField] private float typingSpeed = 0.05f; // Velocidad de escritura
-    [SerializeField] private float popDuration = 0.4f;  // Duración de aparecer/desaparecer
-    [SerializeField] private Ease popInEase = Ease.OutBack; // Rebote al entrar
-    [SerializeField] private Ease popOutEase = Ease.InBack; // Suavidad al salir
+    [Tooltip("Velocidad de escritura (menor es más rápido).")]
+    [SerializeField] private float typingSpeed = 0.04f; // Más rápido
+    [SerializeField] private float popDuration = 0.4f;
+    [SerializeField] private Ease popInEase = Ease.OutBack;
+    [SerializeField] private Ease popOutEase = Ease.InBack;
+
+    [Header("Punctuation Pauses")]
+    [SerializeField] private float commaPause = 0.15f;
+    [SerializeField] private float sentencePause = 0.35f;
+
+    [Header("Audio Settings")]
+    [SerializeField] private float minPitch = 0.9f;
+    [SerializeField] private float maxPitch = 1.1f;
+    [SerializeField] private float excitementPitchOffset = 0.25f;
+    [Range(0.1f, 1.0f)]
+    [SerializeField] private float audioOverlap = 0.7f; // Superposición
 
     [Header("Audio SFX")]
     [SerializeField] private CycloneClip moveSfx;
@@ -53,10 +63,10 @@ public class CharacterSelector : MonoBehaviour
     private bool _isAnimating;
     private bool _isReady;
     private float _moveDistance;
-
-    // Ya no necesitamos _typingCoroutine porque usaremos DOTween
-
     private List<int> _availableIndices = new List<int>();
+
+    // Variable para controlar la corrutina de escritura
+    private Coroutine _typingCoroutine;
 
     private void Start()
     {
@@ -64,10 +74,8 @@ public class CharacterSelector : MonoBehaviour
         _moveDistance = rightSlot.anchoredPosition.x;
 
         RefreshCharacterList();
-
         UpdateVisuals(instant: true);
 
-        // Inicialización segura del diálogo
         if (dialogueContainer != null)
         {
             dialogueContainer.transform.localScale = Vector3.zero;
@@ -99,7 +107,7 @@ public class CharacterSelector : MonoBehaviour
     }
 
     #region Input Handlers
-
+    // (Sin cambios en OnNavigate, OnSelect, OnCancel - se mantienen igual que en tu script original)
     public void OnNavigate(InputAction.CallbackContext context)
     {
         if (!context.performed || _isAnimating || _isReady) return;
@@ -115,25 +123,20 @@ public class CharacterSelector : MonoBehaviour
     public void OnSelect(InputAction.CallbackContext context)
     {
         if (!context.performed || _isAnimating || _isReady) return;
-
         if (cheatDetector != null && cheatDetector.WasInputConsumedByCheat()) return;
-
         SetReadyState(true);
     }
 
     public void OnCancel(InputAction.CallbackContext context)
     {
         if (!context.performed || !_isReady) return;
-
         if (cheatDetector != null && cheatDetector.WasInputConsumedByCheat()) return;
-
         SetReadyState(false);
     }
-
     #endregion
 
     #region Logic & Animation
-
+    // (MoveCarousel, SwapSlotReferences, UpdateVisuals, SetImage, JumpToCharacter se mantienen igual)
     private void MoveCarousel(int direction)
     {
         if (CycloneAudioDriver.Instance != null && moveSfx != null)
@@ -232,7 +235,6 @@ public class CharacterSelector : MonoBehaviour
             unlockSeq.Join(transform.DOShakePosition(0.5f, 20f, 20));
         }
     }
-
     #endregion
 
     #region Ready & Dialogue State
@@ -259,14 +261,8 @@ public class CharacterSelector : MonoBehaviour
             p.selectedCharacter = ready ? selectedChar : null;
         }
 
-        if (ready)
-        {
-            centerSlot.DOScale(1.1f, 0.3f).SetEase(Ease.OutBack);
-        }
-        else
-        {
-            centerSlot.DOScale(1.0f, 0.2f).SetEase(Ease.InQuad);
-        }
+        if (ready) centerSlot.DOScale(1.1f, 0.3f).SetEase(Ease.OutBack);
+        else centerSlot.DOScale(1.0f, 0.2f).SetEase(Ease.InQuad);
 
         OnReadyStatusChanged?.Invoke(_playerIndex, _isReady);
 
@@ -275,41 +271,39 @@ public class CharacterSelector : MonoBehaviour
     }
 
     /// <summary>
-    /// Método refactorizado para usar DOTween Sequence y DOText,
-    /// imitando el estilo de PlayerDialogueController.
+    /// Maneja la UI de diálogo. Usa corrutina manual en vez de DOTween Sequence para el texto
+    /// para poder sincronizar el audio del "blip" correctamente.
     /// </summary>
     private void HandleDialogueUI(bool show, CharacterData charData)
     {
-        // 1. Matamos cualquier tween previo en el contenedor y el texto
-        // para evitar conflictos si el jugador pulsa botones rápido.
+        // 1. Matamos animaciones previas
         dialogueContainer.transform.DOKill();
         dialogueText.DOKill();
+        if (_typingCoroutine != null) StopCoroutine(_typingCoroutine);
 
         if (show)
         {
             dialogueContainer.SetActive(true);
-            dialogueText.text = ""; // Limpiamos texto
+            dialogueText.text = ""; // Limpiamos texto inicial
             dialogueContainer.transform.localScale = Vector3.zero;
 
-            // Creamos una secuencia para encadenar: Aparecer -> Escribir
-            Sequence seq = DOTween.Sequence();
-
-            // Paso A: Pop In (Escala de 0 a 1 con rebote)
-            seq.Append(dialogueContainer.transform.DOScale(Vector3.one, popDuration).SetEase(popInEase));
-
-            // Paso B: Escribir texto (Typewriter)
-            if (charData != null)
-            {
-                string textToType = charData.selectionQuote.GetLocalizedString();
-                float totalTypeDuration = textToType.Length * typingSpeed;
-
-                // DOText escribe el texto letra por letra de forma optimizada
-                seq.Append(dialogueText.DOText(textToType, totalTypeDuration).SetEase(Ease.Linear));
-            }
+            // Animación de entrada (Pop In)
+            dialogueContainer.transform
+                .DOScale(Vector3.one, popDuration)
+                .SetEase(popInEase)
+                .OnComplete(() =>
+                {
+                    // Cuando termina de aparecer la burbuja, empezamos a escribir
+                    if (charData != null)
+                    {
+                        string textToType = charData.selectionQuote.GetLocalizedString();
+                        _typingCoroutine = StartCoroutine(TypewriterRoutine(textToType, charData.voiceBlip));
+                    }
+                });
         }
         else
         {
-            // Pop Out (Escala de 1 a 0) y luego desactivar
+            // Animación de salida (Pop Out)
             dialogueContainer.transform
                 .DOScale(Vector3.zero, popDuration)
                 .SetEase(popOutEase)
@@ -320,8 +314,76 @@ public class CharacterSelector : MonoBehaviour
                 });
         }
 
-        // Cambio de color del nombre (feedback visual extra)
         nameText.color = show ? Color.yellow : Color.white;
+    }
+
+    IEnumerator TypewriterRoutine(string text, CycloneClip voiceBlip)
+    {
+        dialogueText.text = "";
+        float nextAudioTime = 0f;
+        float clipDuration = 0.1f;
+
+        if (voiceBlip != null && voiceBlip.Clip != null)
+            clipDuration = voiceBlip.Clip.length;
+
+        bool currentPhraseExcited = CheckIfSentenceIsExcited(text, 0);
+
+        for (int i = 0; i < text.Length; i++)
+        {
+            char c = text[i];
+            dialogueText.text += c;
+
+            // 1. PUNTUACIÓN
+            if (c == '.' || c == '!' || c == '?')
+            {
+                currentPhraseExcited = CheckIfSentenceIsExcited(text, i + 1);
+                yield return new WaitForSeconds(sentencePause);
+                continue;
+            }
+            else if (c == ',')
+            {
+                yield return new WaitForSeconds(commaPause);
+                continue;
+            }
+
+            // 2. AUDIO CON SUPERPOSICIÓN
+            if (voiceBlip != null && !char.IsWhiteSpace(c))
+            {
+                if (Time.time >= nextAudioTime)
+                {
+                    float basePitch = UnityEngine.Random.Range(minPitch, maxPitch);
+                    float finalPitch = currentPhraseExcited ? basePitch + excitementPitchOffset : basePitch;
+
+                    if (CycloneAudioDriver.Instance != null)
+                    {
+                        CycloneAudioDriver.Instance.SetPitch(voiceBlip, finalPitch);
+                        CycloneAudioDriver.Instance.PlayOneShot(voiceBlip); // Clave para superponer
+                    }
+
+                    // Calculamos el delay basado en el % de overlap
+                    float waitTime = clipDuration * audioOverlap;
+                    // Nunca esperar menos que la velocidad de escritura para evitar sonidos ametralladora excesivos
+                    waitTime = Mathf.Max(waitTime, typingSpeed);
+
+                    nextAudioTime = Time.time + waitTime;
+                }
+            }
+
+            yield return new WaitForSeconds(typingSpeed);
+        }
+    }
+
+    // Detecta si la siguiente frase termina en !
+    private bool CheckIfSentenceIsExcited(string fullText, int startIndex)
+    {
+        if (startIndex >= fullText.Length) return false;
+        for (int i = startIndex; i < fullText.Length; i++)
+        {
+            char c = fullText[i];
+            if (c == '!') return true;
+            if (c == '.' || c == '?') return false;
+        }
+        return false;
     }
 
     #endregion

@@ -902,7 +902,16 @@ MonoBehaviour:
   dialogueText: {fileID: 6520579973228290689}
   animDuration: 0.3
   animEase: 6
-  typeSpeed: 0.025
+  typingSpeed: 0.04
+  popDuration: 0.4
+  popInEase: 27
+  popOutEase: 26
+  commaPause: 0.15
+  sentencePause: 0.35
+  minPitch: 0.9
+  maxPitch: 1.1
+  excitementPitchOffset: 0.25
+  audioOverlap: 0.85
   moveSfx: {fileID: 11400000, guid: de38518ae314a72458f10e078e0d21b9, type: 2}
   selectSfx: {fileID: 11400000, guid: 453f69508e0070c4a8e57b3270239303, type: 2}
   cancelSfx: {fileID: 11400000, guid: d388bc7c866108c4a85bf9a8233b781b, type: 2}
