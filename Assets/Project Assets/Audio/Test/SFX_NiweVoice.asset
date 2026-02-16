@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bc05168e29049d46ab6b888928bf9f2, type: 3}
   m_Name: SFX_NiweVoice
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: 1abe910141eb953419cd93be2100710a, type: 3}
+  clip: {fileID: 8300000, guid: 48b2cd9a8d9e3984fa161765bc709419, type: 3}
   isLoopable: 0

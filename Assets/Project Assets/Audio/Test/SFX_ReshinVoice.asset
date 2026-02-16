@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bc05168e29049d46ab6b888928bf9f2, type: 3}
   m_Name: SFX_ReshinVoice
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: c7a384b5d5d47ea49810b3ab5efabfeb, type: 3}
+  clip: {fileID: 8300000, guid: dd3fb9a8ec2c6a742a0917b1dee4a81f, type: 3}
   isLoopable: 0
