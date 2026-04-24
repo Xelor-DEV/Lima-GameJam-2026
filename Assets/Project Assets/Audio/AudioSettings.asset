@@ -18,17 +18,17 @@ MonoBehaviour:
     type: 0
     mixerGroup: {fileID: 24300002, guid: a0844591544ea8b41a5ba59894bf96d9, type: 2}
     exposedParamName: MasterVolume
-    volume: 0.5
+    volume: 1
   - name: Music
     type: 1
     mixerGroup: {fileID: 3338360595864814218, guid: a0844591544ea8b41a5ba59894bf96d9, type: 2}
     exposedParamName: MusicVolume
-    volume: 0.128
+    volume: 0.5
   - name: SFX
     type: 2
     mixerGroup: {fileID: 5494145576197760694, guid: a0844591544ea8b41a5ba59894bf96d9, type: 2}
     exposedParamName: SFXVolume
-    volume: 0.928
+    volume: 0.5
   - name: UI
     type: 4
     mixerGroup: {fileID: -7579943515113416137, guid: a0844591544ea8b41a5ba59894bf96d9, type: 2}

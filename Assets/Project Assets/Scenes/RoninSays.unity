@@ -384,7 +384,7 @@ MonoBehaviour:
   - actionName: East
     requiredDirection: {x: 0, y: 0}
     keyboardIcon: {fileID: 21300000, guid: 8c964f28e5ed4bf4a93b119cb7444be0, type: 3}
-    gamepadIcon: {fileID: 21300000, guid: 57785c3263e40dc4e84ee46d48f7acf5, type: 3}
+    gamepadIcon: {fileID: 21300000, guid: 0aed36846f1c55547bba1a056e25533e, type: 3}
   - actionName: North
     requiredDirection: {x: 0, y: 0}
     keyboardIcon: {fileID: 21300000, guid: 4f7dfc7cd2cbf424d9a90f3abe27ba99, type: 3}
